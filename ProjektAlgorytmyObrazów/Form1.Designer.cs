@@ -59,6 +59,7 @@ namespace ProjektAlgorytmyObrazów
             this.Wczytaj = new System.Windows.Forms.Button();
             this.Duplikuj = new System.Windows.Forms.Button();
             this.Zapisz = new System.Windows.Forms.Button();
+            this.Histogram = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Wczytaj
@@ -94,11 +95,23 @@ namespace ProjektAlgorytmyObrazów
             this.Zapisz.UseVisualStyleBackColor = true;
             this.Zapisz.Click += new System.EventHandler(this.ZapiszFn);
             // 
+            // Histogram
+            // 
+            this.Histogram.Location = new System.Drawing.Point(275, 2);
+            this.Histogram.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Histogram.Name = "Histogram";
+            this.Histogram.Size = new System.Drawing.Size(93, 33);
+            this.Histogram.TabIndex = 2;
+            this.Histogram.Text = "Histogram";
+            this.Histogram.UseVisualStyleBackColor = true;
+            this.Histogram.Click += new System.EventHandler(this.HistogramFn);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(745, 73);
+            this.ClientSize = new System.Drawing.Size(1016, 129);
+            this.Controls.Add(this.Histogram);
             this.Controls.Add(this.Zapisz);
             this.Controls.Add(this.Duplikuj);
             this.Controls.Add(this.Wczytaj);
@@ -114,7 +127,71 @@ namespace ProjektAlgorytmyObrazów
         private System.Windows.Forms.Button Wczytaj;
         private System.Windows.Forms.Button Duplikuj;
         private System.Windows.Forms.Button Zapisz;
+        private System.Windows.Forms.Button Histogram;
 
+        private void HistogramFn(object sender, EventArgs e)
+        {
+
+            if (activeImage != null)
+            {
+                Bitmap originalImage = new Bitmap(activeImage.ImagePath);
+                byte[] lut = CreateLUT(originalImage);
+
+                // Tworzenie instancji HistoForm
+                HistoForm histoForm = new HistoForm();
+                histoForm.Text = "Histogram";
+
+                // Wyświetlanie histogramu w HistoForm
+                histoForm.DisplayHistogram(lut);
+
+                // Opcjonalnie możesz także wyświetlić oryginalny obraz
+                Image imageToShow = Image.FromFile(activeImage.ImagePath);
+                histoForm.DisplayImage(imageToShow);
+
+                // Wyświetlanie formularza
+                histoForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wczytaj obraz przed próbą utworzenia histogramu.");
+            }
+            
+        }
+
+        private static byte[] CreateLUT(Bitmap originalImage)
+        {
+            byte[] lut = new byte[256];
+
+            // Dla każdego odcienia szarości od 0 do 255
+            for (int i = 0; i < 256; i++)
+            {
+                // Tutaj możesz przypisać wartość LUT dla danego odcienia
+                // W tym przypadku przypisujemy wartość odcienia bez zmiany
+                lut[i] = (byte)i;
+            }
+
+            return lut;
+        }
+
+        // Funkcja do przekształcania obrazu na podstawie tablicy LUT
+        private static Bitmap ApplyLUT(Bitmap originalImage, byte[] lut)
+        {
+            Bitmap transformedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            for (int y = 0; y < originalImage.Height; y++)
+            {
+                for (int x = 0; x < originalImage.Width; x++)
+                {
+                    Color originalColor = originalImage.GetPixel(x, y);
+                    byte originalGrayValue = (byte)((originalColor.R + originalColor.G + originalColor.B) / 3);
+                    byte transformedGrayValue = lut[originalGrayValue];
+                    Color transformedColor = Color.FromArgb(transformedGrayValue, transformedGrayValue, transformedGrayValue);
+                    transformedImage.SetPixel(x, y, transformedColor);
+                }
+            }
+
+            return transformedImage;
+        }
         private void WczytajFn(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -241,6 +318,7 @@ namespace ProjektAlgorytmyObrazów
             imageForm.Text = "Wczytany Obraz (Aktywne)";
         }
 
+        
     }
 
 
