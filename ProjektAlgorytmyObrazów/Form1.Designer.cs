@@ -1,10 +1,13 @@
 ﻿using ProjektAlgorytmyObrazów.Modele;
+using ProjektAlgorytmyObrazów.Functions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-//using OpenCvSharp;
+using OpenCvSharp;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 
 namespace ProjektAlgorytmyObrazów
@@ -30,15 +33,9 @@ namespace ProjektAlgorytmyObrazów
                 images.Remove(imageToRemove);
             }
         }
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -50,10 +47,6 @@ namespace ProjektAlgorytmyObrazów
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.Wczytaj = new System.Windows.Forms.Button();
@@ -134,19 +127,28 @@ namespace ProjektAlgorytmyObrazów
 
             if (activeImage != null)
             {
-                Bitmap originalImage = new Bitmap(activeImage.ImagePath);
-                byte[] lut = CreateLUT(originalImage);
 
+    
+                Mat colorImage = new Mat(activeImage.ImagePath, ImreadModes.Color);
+                Mat grayscaleImage = new Mat();
+                Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
+
+               
+
+                List<byte> pixels = MatToListBytes(grayscaleImage);
+                int[] lutTable=CreateLUT(pixels);
                 // Tworzenie instancji HistoForm
                 HistoForm histoForm = new HistoForm();
                 histoForm.Text = "Histogram";
+                histoForm.Size = new System.Drawing.Size(350, 600);
 
                 // Wyświetlanie histogramu w HistoForm
-                histoForm.DisplayHistogram(lut);
+                histoForm.DisplayHistogram(lutTable);
 
                 // Opcjonalnie możesz także wyświetlić oryginalny obraz
                 Image imageToShow = Image.FromFile(activeImage.ImagePath);
                 histoForm.DisplayImage(imageToShow);
+                histoForm.DisplayStatistics(null,activeImage.statistics.Min,activeImage.statistics.Max,null);
 
                 // Wyświetlanie formularza
                 histoForm.ShowDialog();
@@ -157,22 +159,80 @@ namespace ProjektAlgorytmyObrazów
             }
             
         }
-
-        private static byte[] CreateLUT(Bitmap originalImage)
+        List<byte> MatToListBytes (Mat mat)
         {
-            byte[] lut = new byte[256];
+            List<byte> byteList = new List<byte>();
 
-            // Dla każdego odcienia szarości od 0 do 255
+            if (mat.Channels() != 1)
+            {
+               // throw new InvalidOperationException("The input Mat must be a grayscale image.");
+            }
+
+            int width = mat.Width;
+            int height = mat.Height;
+            int step = (int)mat.Step(); // Szerokość w bajtach między kolejnymi wierszami
+
+            byte[] bytes = new byte[width * height];
+            Marshal.Copy(mat.Data, bytes, 0, width * height);
+            byteList.AddRange(bytes);
+
+            return byteList;
+        }
+
+        private int[] CreateLUT(List<byte> pixels)
+        {
+            var histogram = activeImage.histogram;
+            if (pixels.Count > 0)
+            {
+             
+                int i, iVal;
+
+                for (i = 0; i < 256; ++i)
+                    histogram[i] = 0;
+
+                for (i = 0; i < pixels.Count; ++i)
+                {
+                    iVal = (byte)(pixels[i]);
+                    ++histogram[iVal];
+                }
+
+                for (i = 0; i < 256; ++i)
+                {
+                    if (activeImage.statistics.Max==null||histogram[i] > activeImage.statistics.Max)
+                    {
+                        activeImage.statistics.Max = histogram[i];
+                    }
+                    if (activeImage.statistics.Min==null ||histogram[i] < activeImage.statistics.Min)
+                    {
+                        activeImage.statistics.Min = histogram[i];
+                    }
+                    
+                }
+                MathFns.CalculateMedian(pixels, activeImage);
+                MathFns.CalculateStandardDeviation(pixels, activeImage);
+            }
+            return histogram;
+        }
+        private int[] GenerateLUT(Image image, int levelsOfGray)
+        {
+            if (image == null || levelsOfGray < 2 || levelsOfGray > 256)
+            {
+                throw new ArgumentException("Niepoprawne parametry wejściowe.");
+            }
+
+            int[] lut = new int[256];
+            int step = 256 / levelsOfGray;
+
             for (int i = 0; i < 256; i++)
             {
-                // Tutaj możesz przypisać wartość LUT dla danego odcienia
-                // W tym przypadku przypisujemy wartość odcienia bez zmiany
-                lut[i] = (byte)i;
+                lut[i] = Math.Min(255, (i / step) * step); // Zaokrąglenie do najbliższego dostępnego poziomu jasności
             }
 
             return lut;
         }
+       
 
+       
         // Funkcja do przekształcania obrazu na podstawie tablicy LUT
         private static Bitmap ApplyLUT(Bitmap originalImage, byte[] lut)
         {
@@ -282,7 +342,7 @@ namespace ProjektAlgorytmyObrazów
 
             // Ustaw rozmiar okna na rozmiar obrazu
             imageForm.ClientSize = pictureBox.Image.Size;
-            imageForm.Size = new Size(400, 300);
+            imageForm.Size = new System.Drawing.Size(400, 300);
             imageForm.Image = AddImage(filePath);
 
 

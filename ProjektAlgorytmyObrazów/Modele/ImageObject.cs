@@ -13,12 +13,17 @@ namespace ProjektAlgorytmyObrazów.Modele
         public string ImagePath { get; }
         public string Id { get; }
         public Image Image { get; }
+        public int[] histogram { get; }
+
+        public Statiscics statistics { get; }
 
         public ImageObject(string imagePath)
         {
             ImagePath = imagePath;
             Image = Image.FromFile(imagePath);
             Id = Guid.NewGuid().ToString();
+            histogram = new int[256];
+            statistics = new Statiscics();
         }
 
         public ImageObject Duplicate()
