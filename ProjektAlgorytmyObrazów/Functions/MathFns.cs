@@ -60,7 +60,7 @@ namespace ProjektAlgorytmyObrazów.Functions
                 double variance = sumOfSquares / pixels.Count;
                 double standardDeviation = Math.Sqrt(variance);
 
-                activeImage.statistics.OdchStand = standardDeviation;
+                activeImage.statistics.OdchStand =Math.Round( standardDeviation,2);
             }
             else
             {

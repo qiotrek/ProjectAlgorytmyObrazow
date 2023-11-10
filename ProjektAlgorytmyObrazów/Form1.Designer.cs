@@ -133,9 +133,14 @@ namespace ProjektAlgorytmyObrazów
                 Mat grayscaleImage = new Mat();
                 Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
 
-               
+                if (colorImage.Channels() == 3)
+                {
+                    // Obraz kolorowy - przekształć na szaro-skalowy
+                    Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
+                }
 
                 List<byte> pixels = MatToListBytes(grayscaleImage);
+
                 int[] lutTable=CreateLUT(pixels);
                 // Tworzenie instancji HistoForm
                 HistoForm histoForm = new HistoForm();
@@ -148,10 +153,10 @@ namespace ProjektAlgorytmyObrazów
                 // Opcjonalnie możesz także wyświetlić oryginalny obraz
                 Image imageToShow = Image.FromFile(activeImage.ImagePath);
                 histoForm.DisplayImage(imageToShow);
-                histoForm.DisplayStatistics(null,activeImage.statistics.Min,activeImage.statistics.Max,null);
+                histoForm.DisplayStatistics(activeImage.statistics.Mediana,activeImage.statistics.Min,activeImage.statistics.Max,activeImage.statistics.OdchStand   );
 
                 // Wyświetlanie formularza
-                histoForm.ShowDialog();
+                histoForm.Show();
             }
             else
             {
@@ -194,64 +199,32 @@ namespace ProjektAlgorytmyObrazów
                 {
                     iVal = (byte)(pixels[i]);
                     ++histogram[iVal];
+
+                    if (activeImage.statistics.Max == null || iVal > activeImage.statistics.Max)
+                    {
+                        activeImage.statistics.Max = iVal;
+                    }
+                    if (activeImage.statistics.Min == null || iVal < activeImage.statistics.Min)
+                    {
+                        activeImage.statistics.Min = iVal;
+                    }
                 }
 
-                for (i = 0; i < 256; ++i)
-                {
-                    if (activeImage.statistics.Max==null||histogram[i] > activeImage.statistics.Max)
-                    {
-                        activeImage.statistics.Max = histogram[i];
-                    }
-                    if (activeImage.statistics.Min==null ||histogram[i] < activeImage.statistics.Min)
-                    {
-                        activeImage.statistics.Min = histogram[i];
-                    }
+
+                
                     
-                }
+                
                 MathFns.CalculateMedian(pixels, activeImage);
                 MathFns.CalculateStandardDeviation(pixels, activeImage);
             }
             return histogram;
         }
-        private int[] GenerateLUT(Image image, int levelsOfGray)
-        {
-            if (image == null || levelsOfGray < 2 || levelsOfGray > 256)
-            {
-                throw new ArgumentException("Niepoprawne parametry wejściowe.");
-            }
-
-            int[] lut = new int[256];
-            int step = 256 / levelsOfGray;
-
-            for (int i = 0; i < 256; i++)
-            {
-                lut[i] = Math.Min(255, (i / step) * step); // Zaokrąglenie do najbliższego dostępnego poziomu jasności
-            }
-
-            return lut;
-        }
+       
        
 
        
         // Funkcja do przekształcania obrazu na podstawie tablicy LUT
-        private static Bitmap ApplyLUT(Bitmap originalImage, byte[] lut)
-        {
-            Bitmap transformedImage = new Bitmap(originalImage.Width, originalImage.Height);
-
-            for (int y = 0; y < originalImage.Height; y++)
-            {
-                for (int x = 0; x < originalImage.Width; x++)
-                {
-                    Color originalColor = originalImage.GetPixel(x, y);
-                    byte originalGrayValue = (byte)((originalColor.R + originalColor.G + originalColor.B) / 3);
-                    byte transformedGrayValue = lut[originalGrayValue];
-                    Color transformedColor = Color.FromArgb(transformedGrayValue, transformedGrayValue, transformedGrayValue);
-                    transformedImage.SetPixel(x, y, transformedColor);
-                }
-            }
-
-            return transformedImage;
-        }
+       
         private void WczytajFn(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

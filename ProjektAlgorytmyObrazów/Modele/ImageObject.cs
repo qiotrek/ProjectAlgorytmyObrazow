@@ -14,6 +14,10 @@ namespace ProjektAlgorytmyObrazów.Modele
         public string Id { get; }
         public Image Image { get; }
         public int[] histogram { get; }
+        public List<byte> greyScale { get; }
+        public List<byte> R { get; }
+        public List<byte> G { get; }
+        public List<byte> B { get; }
 
         public Statiscics statistics { get; }
 
@@ -24,6 +28,10 @@ namespace ProjektAlgorytmyObrazów.Modele
             Id = Guid.NewGuid().ToString();
             histogram = new int[256];
             statistics = new Statiscics();
+            greyScale = null;
+            R = new List<byte>();
+            G = new List<byte>();
+            B = new List<byte>();
         }
 
         public ImageObject Duplicate()

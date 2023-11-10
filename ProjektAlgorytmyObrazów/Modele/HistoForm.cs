@@ -15,10 +15,7 @@ namespace ProjektAlgorytmyObrazów.Modele
         public ImageObject Image { get; set; }
         private Chart chartHistogram;
         private PictureBox pictureBoxImage;
-        private Label labelMedian;
-        private Label labelMin;
-        private Label labelMax;
-        private Label labelStdDev;
+        private Label labelStats; // Nowy Label do wyświetlania statystyk
 
         public HistoForm()
         {
@@ -29,10 +26,7 @@ namespace ProjektAlgorytmyObrazów.Modele
         {
             this.chartHistogram = new Chart();
             this.pictureBoxImage = new PictureBox();
-            this.labelMedian = new Label();
-            this.labelMin = new Label();
-            this.labelMax = new Label();
-            this.labelStdDev = new Label();
+            this.labelStats = new Label(); // Inicjalizacja nowego Label do statystyk
 
             this.SuspendLayout();
 
@@ -52,22 +46,13 @@ namespace ProjektAlgorytmyObrazów.Modele
             this.chartHistogram.ChartAreas[0].AxisX.Title = "Wartość Piksela";
             this.chartHistogram.ChartAreas[0].AxisY.Title = "Liczba Pikseli";
 
-            // Konfiguracja labeli do wyświetlania informacji
-            this.labelMedian.Location = new Point(330, 12);
-            this.labelMedian.AutoSize = true;
-            this.labelMin.Location = new Point(330, 32);
-            this.labelMin.AutoSize = true;
-            this.labelMax.Location = new Point(330, 52);
-            this.labelMax.AutoSize = true;
-            this.labelStdDev.Location = new Point(330, 72);
-            this.labelStdDev.AutoSize = true;
+            // Konfiguracja Labela do wyświetlania informacji o statystykach
+            this.labelStats.Location = new Point(12, 524); // Ustawienie pod wykresem
+            this.labelStats.AutoSize = true;
 
             this.Controls.Add(pictureBoxImage);
             this.Controls.Add(chartHistogram);
-            this.Controls.Add(labelMedian);
-            this.Controls.Add(labelMin);
-            this.Controls.Add(labelMax);
-            this.Controls.Add(labelStdDev);
+            this.Controls.Add(labelStats);
 
             this.Name = "HistoForm";
             this.ResumeLayout(false);
@@ -101,10 +86,7 @@ namespace ProjektAlgorytmyObrazów.Modele
         public void DisplayStatistics(double? median, int? min, int? max, double? stdDev)
         {
             // Wyświetl informacje o medianie, minimalnej, maksymalnej wartości i odchyleniu standardowym
-            labelMedian.Text = $"Mediana: {(median!=null?median:0)}";
-            labelMin.Text = $"Min: {(min != null ? min : 0)}";
-            labelMax.Text = $"Max: {(max != null ? max : 0)}";
-            labelStdDev.Text = $"Odchylenie Std: {(stdDev != null ? stdDev : 0)}";
+            labelStats.Text = $"Mediana: {(median != null ? median : 0)} | Min: {(min != null ? min : 0)} | Max: {(max != null ? max : 0)} | Odchylenie Std: {(stdDev != null ? stdDev : 0)}";
         }
     }
 }
