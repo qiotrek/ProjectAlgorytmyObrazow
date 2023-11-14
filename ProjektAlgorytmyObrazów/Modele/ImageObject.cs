@@ -13,13 +13,19 @@ namespace ProjektAlgorytmyObrazów.Modele
         public string ImagePath { get; }
         public string Id { get; }
         public Image Image { get; }
-        public int[] histogram { get; }
+        public int[] histogram { get; set; }
+        public int[] histogramR { get; set; }
+        public int[] histogramG { get; set; }
+        public int[] histogramB { get; set; }
         public List<byte> greyScale { get; }
-        public List<byte> R { get; }
-        public List<byte> G { get; }
-        public List<byte> B { get; }
+        public List<byte> R { get; set; }
+        public List<byte> G { get; set; }
+        public List<byte> B { get; set; }
 
-        public Statiscics statistics { get; }
+        public Statiscics statistics { get; set; }
+        public Statiscics statisticsR { get; set; }
+        public Statiscics statisticsG { get; set; }
+        public Statiscics statisticsB { get; set; }
 
         public ImageObject(string imagePath)
         {

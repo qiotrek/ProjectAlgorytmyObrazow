@@ -124,54 +124,104 @@ namespace ProjektAlgorytmyObrazów
 
         private void HistogramFn(object sender, EventArgs e)
         {
-
             if (activeImage != null)
             {
+                Mat Image = new Mat(activeImage.ImagePath);
 
-    
-                Mat colorImage = new Mat(activeImage.ImagePath, ImreadModes.Color);
-                Mat grayscaleImage = new Mat();
-                Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
+                //Mat grayscaleImage = new Mat();
+                //Cv2.CvtColor(Image, Image, ColorConversionCodes.BGR2GRAY);
 
-                if (colorImage.Channels() == 3)
-                {
-                    // Obraz kolorowy - przekształć na szaro-skalowy
-                    Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
-                }
+                int[] lutTable;
+      
+                    // Obraz kolorowy - generuj trzy tablice LUT dla każdego kanału RGB
+                    List<byte>[] channelPixels = SplitChannels(Image);
 
-                List<byte> pixels = MatToListBytes(grayscaleImage);
+                
+                    int[] lutB = CreateLUT(channelPixels[0].ToList());
+                    activeImage.statisticsB = MathFns.CalculateStatistics(channelPixels[0], lutB);
+                    activeImage.histogramB = lutB;
 
-                int[] lutTable=CreateLUT(pixels);
-                // Tworzenie instancji HistoForm
-                HistoForm histoForm = new HistoForm();
-                histoForm.Text = "Histogram";
-                histoForm.Size = new System.Drawing.Size(350, 600);
+                    int[] lutG = CreateLUT(channelPixels[1].ToList());
+                    activeImage.statisticsG = MathFns.CalculateStatistics(channelPixels[1], lutG);
+                    activeImage.histogramG = lutG;
 
-                // Wyświetlanie histogramu w HistoForm
-                histoForm.DisplayHistogram(lutTable);
 
-                // Opcjonalnie możesz także wyświetlić oryginalny obraz
-                Image imageToShow = Image.FromFile(activeImage.ImagePath);
-                histoForm.DisplayImage(imageToShow);
-                histoForm.DisplayStatistics(activeImage.statistics.Mediana,activeImage.statistics.Min,activeImage.statistics.Max,activeImage.statistics.OdchStand   );
+                    int[] lutR = CreateLUT(channelPixels[2].ToList());
+                    activeImage.statisticsR = MathFns.CalculateStatistics(channelPixels[2], lutR);
+                    activeImage.histogramR = lutR;
 
-                // Wyświetlanie formularza
-                histoForm.Show();
+                    bool areLUTsEqual = lutR.SequenceEqual(lutB) && lutB.SequenceEqual(lutG);
+
+                    if (areLUTsEqual)
+                    {
+
+                        activeImage.histogram = lutG;
+                        activeImage.statistics = MathFns.CalculateStatistics(channelPixels[1], lutG);
+                        ShowGreyScaleHistogram(lutG);
+                        
+                    }
+                    else {
+                        ShowRGBHistogram(lutR, lutG, lutB);
+                    }
+                   
+                
+
+
             }
             else
             {
                 MessageBox.Show("Najpierw wczytaj obraz przed próbą utworzenia histogramu.");
             }
-            
         }
-        List<byte> MatToListBytes (Mat mat)
+
+        private void ShowGreyScaleHistogram(int[] lutTable) {
+
+            HistoForm histoForm = new HistoForm();
+            histoForm.Text = "Histogram";
+            histoForm.Size = new System.Drawing.Size(350, 600);
+
+            // Wyświetlanie histogramu w HistoForm
+            histoForm.DisplayHistogram(lutTable);
+
+            // Opcjonalnie możesz także wyświetlić oryginalny obraz
+            Image imageToShow = Image.FromFile(activeImage.ImagePath);
+            histoForm.DisplayImage(imageToShow);
+            histoForm.DisplayStatistics(activeImage.statistics.Mediana, activeImage.statistics.Min, activeImage.statistics.Max, activeImage.statistics.OdchStand);
+
+            // Wyświetlanie formularza
+            histoForm.Show();
+        }
+
+        private void ShowRGBHistogram(int[] lutTableR, int[] lutTableG, int[] lutTableB)
+        {
+            HistoForm histoForm = new HistoForm();
+            histoForm.Text = "Histogram";
+            histoForm.Size = new System.Drawing.Size(350, 815); // Dostosuj szerokość okna do trzech histogramów
+
+            // Wyświetlanie histogramu RGB w HistoForm
+            histoForm.DisplayHistogramRGB(lutTableR, lutTableG, lutTableB);
+
+            // Opcjonalnie możesz także wyświetlić oryginalny obraz
+            Image imageToShow = Image.FromFile(activeImage.ImagePath);
+            histoForm.DisplayImage(imageToShow);
+            histoForm.DisplayStatisticsRGB(activeImage.statisticsR,activeImage.statisticsG,activeImage.statisticsB);
+
+            // Wyświetlanie formularza
+            histoForm.Show();
+        }
+
+        private List<byte>[] SplitChannels(Mat colorImage)
+        {
+            List<byte>[] channels = new List<byte>[3];
+            for (int i = 0; i < 3; i++)
+            {
+                channels[i] = MatToListBytes(colorImage.ExtractChannel(i));
+            }
+            return channels;
+        }
+        private List<byte> MatToListBytes (Mat mat)
         {
             List<byte> byteList = new List<byte>();
-
-            if (mat.Channels() != 1)
-            {
-               // throw new InvalidOperationException("The input Mat must be a grayscale image.");
-            }
 
             int width = mat.Width;
             int height = mat.Height;
@@ -186,7 +236,7 @@ namespace ProjektAlgorytmyObrazów
 
         private int[] CreateLUT(List<byte> pixels)
         {
-            var histogram = activeImage.histogram;
+            var histogram = new int[256]; ;
             if (pixels.Count > 0)
             {
              
@@ -200,22 +250,7 @@ namespace ProjektAlgorytmyObrazów
                     iVal = (byte)(pixels[i]);
                     ++histogram[iVal];
 
-                    if (activeImage.statistics.Max == null || iVal > activeImage.statistics.Max)
-                    {
-                        activeImage.statistics.Max = iVal;
-                    }
-                    if (activeImage.statistics.Min == null || iVal < activeImage.statistics.Min)
-                    {
-                        activeImage.statistics.Min = iVal;
-                    }
                 }
-
-
-                
-                    
-                
-                MathFns.CalculateMedian(pixels, activeImage);
-                MathFns.CalculateStandardDeviation(pixels, activeImage);
             }
             return histogram;
         }
@@ -230,21 +265,22 @@ namespace ProjektAlgorytmyObrazów
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
-
+            
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 // Pobranie ścieżki do wybranego pliku
                 string selectedFilePath = openFileDialog.FileName;
 
                 CreateNewForm(selectedFilePath, "Wczytany Obraz");
-                
-
+                //Mat loadedImage = Cv2.ImRead(selectedFilePath);
+                //int channels = loadedImage.Channels();
             }
+           
         }
 
         private void DuplikujFn(object sender, EventArgs e)
         {
-            if (activeImage!=null)
+            if (activeImage != null)
             {
                 CreateNewForm(activeImage.ImagePath, "Duplikat Obrazu");
             }
@@ -252,6 +288,26 @@ namespace ProjektAlgorytmyObrazów
             {
                 MessageBox.Show("Najpierw wczytaj obraz przed próbą duplikacji.");
             }
+            //if (activeImage != null)
+            //{
+            //    // Load the color image
+            //    Mat colorImage = Cv2.ImRead(activeImage.ImagePath);
+
+            //    // Convert the color image to grayscale
+            //    Mat grayscaleImage = new Mat();
+            //    Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
+
+            //    // Save the grayscale image
+            //    string outputPath = "C:\\Users\\piotr\\Pictures\\grayscale_image.jpg";  // Replace with your desired path and filename
+            //    Cv2.ImWrite(outputPath, grayscaleImage);
+
+            //    // Optionally, create a new form with the grayscale image
+            //    // CreateNewForm(outputPath, "Duplikat Obrazu");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Najpierw wczytaj obraz przed próbą duplikacji.");
+            //}
         }
 
         private void ZapiszFn(object sender, EventArgs e)
