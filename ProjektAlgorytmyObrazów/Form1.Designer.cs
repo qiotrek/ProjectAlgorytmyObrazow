@@ -151,15 +151,34 @@ namespace ProjektAlgorytmyObrazów
                 bool przesycenie = ShowPrzesycenieCheckboxForm();
                 Image image = activeImage.Image;
                 Bitmap bitmap = new Bitmap(image);
+                Bitmap strechedImage=null;
                 if (przesycenie)
                 {
+                    bitmap = LiczPrzesycenie(bitmap);
                 }
-                Bitmap strechedImage =StretchHistogram(bitmap);
+                    
+                strechedImage = StretchHistogram(bitmap);
+                 
                 CreateNewForm((Image)strechedImage, "Wczytany Obraz");
 
             }
             //CreateNewRozciaganieForm("Rozciaganie Liniowe");
          
+        }
+        public Bitmap LiczPrzesycenie(Bitmap originalImage) {
+         
+            for (int y = 0; y < originalImage.Height; y++)
+            {
+                for (int x = 0; x < originalImage.Width; x++)
+                {
+                    Color pixelColor = originalImage.GetPixel(x, y);
+              
+                    pixelColor = Color.FromArgb(pixelColor.R / 2 , pixelColor.G / 2 , pixelColor.B /2);
+                    originalImage.SetPixel(x, y, pixelColor);
+                }
+            }
+
+            return originalImage;
         }
         public static Bitmap StretchHistogram(Bitmap originalImage)
         {
@@ -255,6 +274,18 @@ namespace ProjektAlgorytmyObrazów
             rozciaganieForm.activeImage = activeImage;
             rozciaganieForm.Show();
         }
+        private string ImageToPath() {
+            string path = "C:\\Users\\piotr\\Pictures\\Props";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string name = "prop-" + Guid.NewGuid();
+            string filePath = Path.Combine(path, name);
+            activeImage.ImagePath = filePath;
+            activeImage.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+            return filePath;
+        }
         private void HistogramFn(object sender, EventArgs e)
         {
             if (activeImage != null)
@@ -266,16 +297,8 @@ namespace ProjektAlgorytmyObrazów
                 }
                 else
                 {
-                    string path = "C:\\Users\\piotr\\Pictures\\Props";
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    string name = "prop-"+ Guid.NewGuid();
-                    string filePath = Path.Combine(path, name);
-                    activeImage.ImagePath = filePath;
-                    activeImage.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-                    Image=new Mat(filePath);
+                    string filePath = ImageToPath();
+                    Image =new Mat(filePath);
                 }
                 //Mat grayscaleImage = new Mat();
                 //Cv2.CvtColor(Image, Image, ColorConversionCodes.BGR2GRAY);
