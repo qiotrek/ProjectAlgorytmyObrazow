@@ -10,7 +10,7 @@ namespace ProjektAlgorytmyObrazów.Modele
 {
     public class ImageObject
     {
-        public string ImagePath { get; }
+        public string ImagePath { get; set; }
         public string Id { get; }
         public Image Image { get; }
         public int[] histogram { get; set; }
@@ -31,6 +31,18 @@ namespace ProjektAlgorytmyObrazów.Modele
         {
             ImagePath = imagePath;
             Image = Image.FromFile(imagePath);
+            Id = Guid.NewGuid().ToString();
+            histogram = new int[256];
+            statistics = new Statiscics();
+            greyScale = null;
+            R = new List<byte>();
+            G = new List<byte>();
+            B = new List<byte>();
+        }
+        public ImageObject(Image image)
+        {
+   
+            Image = image;
             Id = Guid.NewGuid().ToString();
             histogram = new int[256];
             statistics = new Statiscics();

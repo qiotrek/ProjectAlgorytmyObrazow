@@ -6,23 +6,29 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using OpenCvSharp;
-using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-
+using System.IO;
 
 namespace ProjektAlgorytmyObrazów
 {
-    partial class Form1
+    public partial class Form1
     {
         private List<ImageObject> images = new List<ImageObject>();
-        private ImageObject activeImage = null;
+        public ImageObject activeImage = null;
         private ImageForm activeForm = null;
+        RozciaganieForm rozciaganieForm = new RozciaganieForm();
 
         public ImageObject AddImage(string imagePath)
         {
             ImageObject image = new ImageObject(imagePath);
             images.Add(image);
             return image;
+        }
+        public ImageObject AddImage(Image image)
+        {
+            ImageObject image2 = new ImageObject(image=image);
+            images.Add(image2);
+            return image2;
         }
         public void RemoveImage(string id)
         {
@@ -53,6 +59,7 @@ namespace ProjektAlgorytmyObrazów
             this.Duplikuj = new System.Windows.Forms.Button();
             this.Zapisz = new System.Windows.Forms.Button();
             this.Histogram = new System.Windows.Forms.Button();
+            this.RozciąganieLiniowe = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Wczytaj
@@ -99,11 +106,22 @@ namespace ProjektAlgorytmyObrazów
             this.Histogram.UseVisualStyleBackColor = true;
             this.Histogram.Click += new System.EventHandler(this.HistogramFn);
             // 
+            // RozciąganieLiniowe
+            // 
+            this.RozciąganieLiniowe.Location = new System.Drawing.Point(374, 2);
+            this.RozciąganieLiniowe.Name = "RozciąganieLiniowe";
+            this.RozciąganieLiniowe.Size = new System.Drawing.Size(141, 33);
+            this.RozciąganieLiniowe.TabIndex = 3;
+            this.RozciąganieLiniowe.Text = "RozciąganieLiniowe";
+            this.RozciąganieLiniowe.UseVisualStyleBackColor = true;
+            this.RozciąganieLiniowe.Click += new System.EventHandler(this.ShowRozciaganieForm);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 129);
+            this.Controls.Add(this.RozciąganieLiniowe);
             this.Controls.Add(this.Histogram);
             this.Controls.Add(this.Zapisz);
             this.Controls.Add(this.Duplikuj);
@@ -111,6 +129,7 @@ namespace ProjektAlgorytmyObrazów
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -121,13 +140,143 @@ namespace ProjektAlgorytmyObrazów
         private System.Windows.Forms.Button Duplikuj;
         private System.Windows.Forms.Button Zapisz;
         private System.Windows.Forms.Button Histogram;
+        private Button RozciąganieLiniowe;
 
+        private void ShowRozciaganieForm(object sender, EventArgs e) {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz aktywne zdjęcie");
+            }
+            else {
+                bool przesycenie = ShowPrzesycenieCheckboxForm();
+                Image image = activeImage.Image;
+                Bitmap bitmap = new Bitmap(image);
+                if (przesycenie)
+                {
+                }
+                Bitmap strechedImage =StretchHistogram(bitmap);
+                CreateNewForm((Image)strechedImage, "Wczytany Obraz");
+
+            }
+            //CreateNewRozciaganieForm("Rozciaganie Liniowe");
+         
+        }
+        public static Bitmap StretchHistogram(Bitmap originalImage)
+        {
+            int minIntensity = 255;
+            int maxIntensity = 0;
+
+            // Znajdź minimalną i maksymalną intensywność piksela w obrazie
+            for (int y = 0; y < originalImage.Height; y++)
+            {
+                for (int x = 0; x < originalImage.Width; x++)
+                {
+                    Color pixelColor = originalImage.GetPixel(x, y);
+                    int intensity = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
+
+                    if (intensity < minIntensity)
+                        minIntensity = intensity;
+
+                    if (intensity > maxIntensity)
+                        maxIntensity = intensity;
+                }
+            }
+
+            // Rozciągnięcie histogramu
+            Bitmap stretchedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            for (int y = 0; y < originalImage.Height; y++)
+            {
+                for (int x = 0; x < originalImage.Width; x++)
+                {
+                    Color pixelColor = originalImage.GetPixel(x, y);
+                    int intensity = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
+
+                    // Rozciągnięcie liniowe
+                    int stretchedIntensity = (int)((intensity - minIntensity) / (double)(maxIntensity - minIntensity) * 255);
+
+                    Color newColor = Color.FromArgb(stretchedIntensity, stretchedIntensity, stretchedIntensity);
+                    stretchedImage.SetPixel(x, y, newColor);
+                }
+            }
+
+            return stretchedImage;
+        }
+        private bool ShowPrzesycenieCheckboxForm() {
+            Form rozciaganieForm = new Form();
+            bool result = false;
+            // Ustawienia formularza
+            rozciaganieForm.Text = "Rozciaganie Liniowe";
+            rozciaganieForm.Size = new System.Drawing.Size(300, 150);
+            rozciaganieForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            rozciaganieForm.MaximizeBox = false;
+
+            // Tekst na formularzu
+            Label label = new Label();
+            label.Text = "Przesycenie?";
+            label.Location = new System.Drawing.Point(115, 10);
+            rozciaganieForm.Controls.Add(label);
+
+            // Checkbox na formularzu
+            CheckBox checkBox = new CheckBox();
+            checkBox.Location = new System.Drawing.Point(140, 30);
+            rozciaganieForm.Controls.Add(checkBox);
+
+            // Przycisk na formularzu
+            Button button = new Button();
+            button.Text = "Zatwierdź";
+            button.Location = new System.Drawing.Point(110, 60);
+            button.Click += (s, args) =>
+            {
+                if (checkBox.Checked)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+                rozciaganieForm.Close();
+            };
+            rozciaganieForm.Controls.Add(button);
+
+            // Pokaż formularz
+            rozciaganieForm.ShowDialog();
+
+            return result;
+        }
+        private void CreateNewRozciaganieForm( string formTitle) {
+
+            rozciaganieForm.Text = formTitle;
+            rozciaganieForm.Min = 0;
+            rozciaganieForm.Max = 255;
+            rozciaganieForm.NewMin = 0;
+            rozciaganieForm.NewMax = 255;
+            rozciaganieForm.activeImage = activeImage;
+            rozciaganieForm.Show();
+        }
         private void HistogramFn(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
-                Mat Image = new Mat(activeImage.ImagePath);
-
+                Mat Image=new Mat();
+                if (activeImage.ImagePath != null)
+                {
+                    Image = new Mat(activeImage.ImagePath);
+                }
+                else
+                {
+                    string path = "C:\\Users\\piotr\\Pictures\\Props";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string name = "prop-"+ Guid.NewGuid();
+                    string filePath = Path.Combine(path, name);
+                    activeImage.ImagePath = filePath;
+                    activeImage.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                    Image=new Mat(filePath);
+                }
                 //Mat grayscaleImage = new Mat();
                 //Cv2.CvtColor(Image, Image, ColorConversionCodes.BGR2GRAY);
 
@@ -254,10 +403,7 @@ namespace ProjektAlgorytmyObrazów
             }
             return histogram;
         }
-       
-       
-
-       
+             
         // Funkcja do przekształcania obrazu na podstawie tablicy LUT
        
         private void WczytajFn(object sender, EventArgs e)
@@ -347,7 +493,7 @@ namespace ProjektAlgorytmyObrazów
             }
         }
 
-        private void CreateNewForm(string filePath ,string formTitle)
+        private void CreateNewForm(string filePath, string formTitle)
         {
             // Utwórz nowe okno dla wyświetlenia obrazu
             ImageForm imageForm = new ImageForm();
@@ -357,45 +503,75 @@ namespace ProjektAlgorytmyObrazów
             pictureBox.Image = Image.FromFile(filePath);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // Skalowanie obrazu do rozmiaru okna
 
+            ConfigureImageForm(imageForm, pictureBox, filePath);
+        }
+
+        private void CreateNewForm(Image image, string formTitle)
+        {
+            // Utwórz nowe okno dla wyświetlenia obrazu
+            ImageForm imageForm = new ImageForm();
+            imageForm.Text = formTitle;
+          
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Image = image;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom; // Skalowanie obrazu do rozmiaru okna
+
+            ConfigureImageForm(imageForm, pictureBox, null, image);
+        }
+
+        private void ConfigureImageForm(ImageForm imageForm, PictureBox pictureBox, string filePath,Image image=null)
+        {
             imageForm.Controls.Add(pictureBox);
 
             // Wyśrodkowanie obrazu w oknie
             pictureBox.Dock = DockStyle.Fill;
             pictureBox.MouseDown += (s, ev) =>
             {
-
-
                 SetActiveImageForm(imageForm);
-
             };
 
             // Ustaw rozmiar okna na rozmiar obrazu
             imageForm.ClientSize = pictureBox.Image.Size;
             imageForm.Size = new System.Drawing.Size(400, 300);
-            imageForm.Image = AddImage(filePath);
 
-
-            imageForm.FormClosed += (s, ev) =>
+            if (filePath != null)
             {
-
-                if (imageForm.Image == activeImage)
+                imageForm.Image = AddImage(filePath);
+                imageForm.FormClosed += (s, ev) =>
                 {
-                    activeImage = null;
-                }
-                RemoveImage(imageForm.Image.Id);
-                Console.Write("Zamknięto: " + imageForm.Image.Id);
+                    if (imageForm.Image == activeImage)
+                    {
+                        activeImage = null;
+                    }
+                    RemoveImage(imageForm.Image.Id);
 
-            };
+                };
+            }
+            else if (image != null)
+            { 
+                imageForm.Image = AddImage(image);
+                imageForm.FormClosed += (s, ev) =>
+                {
+                    if (imageForm.Image == activeImage)
+                    {
+                        activeImage = null;
+                    }
+                    RemoveImage(imageForm.Image.Id);
+
+                };
+
+            }
+
             // Pokaż nowe okno
             imageForm.Show();
             imageForm.Refresh();
-            Console.Write("Utworzono: " + imageForm.Image.Id);
 
         }
 
         private void SetActiveImageForm(ImageForm imageForm)
         {
             activeImage = imageForm.Image;
+            rozciaganieForm.activeImage = activeImage;
             if (activeForm != null)
             {
                 // Oznacz poprzednie okno jako nieaktywne
@@ -404,7 +580,7 @@ namespace ProjektAlgorytmyObrazów
 
             // Ustaw nowe okno jako aktywne
             activeForm = imageForm;
-            imageForm.Text = "Wczytany Obraz (Aktywne)";
+            imageForm.Text = imageForm.Text+" (Aktywne)";
         }
 
         

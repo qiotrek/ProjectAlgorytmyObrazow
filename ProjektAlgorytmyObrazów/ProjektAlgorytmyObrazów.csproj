@@ -73,20 +73,23 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions\MathFns.cs" />
-    <Compile Include="Modele\HistoForm.cs">
+    <Compile Include="Forms\HistoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modele\ImageForm.cs">
+    <Compile Include="Forms\ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modele\ImageObject.cs" />
+    <Compile Include="Forms\RozciaganieForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modele\Statiscics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modele\HistoForm.resx">
+    <EmbeddedResource Include="Forms\HistoForm.resx">
       <DependentUpon>HistoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
