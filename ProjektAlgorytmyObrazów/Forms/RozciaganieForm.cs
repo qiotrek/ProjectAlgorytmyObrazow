@@ -135,26 +135,6 @@ namespace ProjektAlgorytmyObrazów.Modele
         }
 
         
-        static Bitmap ReduceGrayscaleLevelsInImage(Bitmap originalImage, int newGrayLevels)
-        {
-            // Create a new bitmap with the same size as the original
-            Bitmap reducedGrayscaleImage = new Bitmap(originalImage.Width, originalImage.Height);
-            // Calculate the factor to scale the grayscale levels
-            int factor = 255 / (newGrayLevels);
-            // Iterate through each pixel and reduce the grayscale level
-            for (int x = 0; x < originalImage.Width; x++)
-            {
-                for (int y = 0; y < originalImage.Height; y++)
-                {
-                    Color originalColor = originalImage.GetPixel(x, y);
-                    // Calculate the new grayscale level
-                    int newGrayValue = ((originalColor.R + originalColor.G + originalColor.B) / 3) / factor * factor;
-                    // Set the new color to the new bitmap
-                    Color newColor = Color.FromArgb(newGrayValue, newGrayValue, newGrayValue);
-                    reducedGrayscaleImage.SetPixel(x, y, newColor);
-                }
-            }
-            return reducedGrayscaleImage;
-        }
+       
     }
 }

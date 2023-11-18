@@ -60,6 +60,9 @@ namespace ProjektAlgorytmyObrazów
             this.Zapisz = new System.Windows.Forms.Button();
             this.Histogram = new System.Windows.Forms.Button();
             this.RozciąganieLiniowe = new System.Windows.Forms.Button();
+            this.RedukcjaPoziomowSzarosci = new System.Windows.Forms.Button();
+            this.Negacja = new System.Windows.Forms.Button();
+            this.Progowanie = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Wczytaj
@@ -67,7 +70,7 @@ namespace ProjektAlgorytmyObrazów
             this.Wczytaj.Location = new System.Drawing.Point(3, 2);
             this.Wczytaj.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Wczytaj.Name = "Wczytaj";
-            this.Wczytaj.Size = new System.Drawing.Size(75, 33);
+            this.Wczytaj.Size = new System.Drawing.Size(88, 33);
             this.Wczytaj.TabIndex = 0;
             this.Wczytaj.Text = "Wczytaj";
             this.Wczytaj.UseVisualStyleBackColor = true;
@@ -75,7 +78,7 @@ namespace ProjektAlgorytmyObrazów
             // 
             // Duplikuj
             // 
-            this.Duplikuj.Location = new System.Drawing.Point(83, 2);
+            this.Duplikuj.Location = new System.Drawing.Point(3, 45);
             this.Duplikuj.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Duplikuj.Name = "Duplikuj";
             this.Duplikuj.Size = new System.Drawing.Size(88, 33);
@@ -86,10 +89,10 @@ namespace ProjektAlgorytmyObrazów
             // 
             // Zapisz
             // 
-            this.Zapisz.Location = new System.Drawing.Point(176, 2);
+            this.Zapisz.Location = new System.Drawing.Point(3, 85);
             this.Zapisz.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Zapisz.Name = "Zapisz";
-            this.Zapisz.Size = new System.Drawing.Size(93, 33);
+            this.Zapisz.Size = new System.Drawing.Size(88, 33);
             this.Zapisz.TabIndex = 2;
             this.Zapisz.Text = "Zapisz";
             this.Zapisz.UseVisualStyleBackColor = true;
@@ -97,10 +100,10 @@ namespace ProjektAlgorytmyObrazów
             // 
             // Histogram
             // 
-            this.Histogram.Location = new System.Drawing.Point(275, 2);
+            this.Histogram.Location = new System.Drawing.Point(97, 2);
             this.Histogram.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Histogram.Name = "Histogram";
-            this.Histogram.Size = new System.Drawing.Size(93, 33);
+            this.Histogram.Size = new System.Drawing.Size(102, 33);
             this.Histogram.TabIndex = 2;
             this.Histogram.Text = "Histogram";
             this.Histogram.UseVisualStyleBackColor = true;
@@ -108,7 +111,7 @@ namespace ProjektAlgorytmyObrazów
             // 
             // RozciąganieLiniowe
             // 
-            this.RozciąganieLiniowe.Location = new System.Drawing.Point(374, 2);
+            this.RozciąganieLiniowe.Location = new System.Drawing.Point(205, 2);
             this.RozciąganieLiniowe.Name = "RozciąganieLiniowe";
             this.RozciąganieLiniowe.Size = new System.Drawing.Size(141, 33);
             this.RozciąganieLiniowe.TabIndex = 3;
@@ -116,11 +119,45 @@ namespace ProjektAlgorytmyObrazów
             this.RozciąganieLiniowe.UseVisualStyleBackColor = true;
             this.RozciąganieLiniowe.Click += new System.EventHandler(this.ShowRozciaganieForm);
             // 
+            // RedukcjaPoziomowSzarosci
+            // 
+            this.RedukcjaPoziomowSzarosci.Location = new System.Drawing.Point(352, 41);
+            this.RedukcjaPoziomowSzarosci.Name = "RedukcjaPoziomowSzarosci";
+            this.RedukcjaPoziomowSzarosci.Size = new System.Drawing.Size(141, 33);
+            this.RedukcjaPoziomowSzarosci.TabIndex = 4;
+            this.RedukcjaPoziomowSzarosci.Text = "RedukcjaSzarosci";
+            this.RedukcjaPoziomowSzarosci.UseVisualStyleBackColor = true;
+            this.RedukcjaPoziomowSzarosci.Click += new System.EventHandler(this.RedukcjaSzarosci);
+            // 
+            // Negacja
+            // 
+            this.Negacja.Location = new System.Drawing.Point(352, 2);
+            this.Negacja.Name = "Negacja";
+            this.Negacja.Size = new System.Drawing.Size(141, 33);
+            this.Negacja.TabIndex = 5;
+            this.Negacja.Text = "Negacja";
+            this.Negacja.UseVisualStyleBackColor = true;
+            this.Negacja.Click += new System.EventHandler(this.Neagcja);
+            // 
+            // Progowanie
+            // 
+            this.Progowanie.Location = new System.Drawing.Point(352, 80);
+            this.Progowanie.Name = "Progowanie";
+            this.Progowanie.Size = new System.Drawing.Size(141, 33);
+            this.Progowanie.TabIndex = 6;
+            this.Progowanie.Text = "Progowanie";
+            this.Progowanie.UseVisualStyleBackColor = true;
+            this.Progowanie.Click += new System.EventHandler(this.ProgowanieFN);
+
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 129);
+            this.Controls.Add(this.Progowanie);
+            this.Controls.Add(this.Negacja);
+            this.Controls.Add(this.RedukcjaPoziomowSzarosci);
             this.Controls.Add(this.RozciąganieLiniowe);
             this.Controls.Add(this.Histogram);
             this.Controls.Add(this.Zapisz);
@@ -128,7 +165,7 @@ namespace ProjektAlgorytmyObrazów
             this.Controls.Add(this.Wczytaj);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "AlgorytmyPrzetwarzaniaObrazow";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
@@ -141,6 +178,9 @@ namespace ProjektAlgorytmyObrazów
         private System.Windows.Forms.Button Zapisz;
         private System.Windows.Forms.Button Histogram;
         private Button RozciąganieLiniowe;
+        private Button RedukcjaPoziomowSzarosci;
+        private Button Negacja;
+        private Button Progowanie;
 
         private void ShowRozciaganieForm(object sender, EventArgs e) {
             if (activeImage == null)
@@ -148,123 +188,83 @@ namespace ProjektAlgorytmyObrazów
                 MessageBox.Show("Najpierw wybierz aktywne zdjęcie");
             }
             else {
-                bool przesycenie = ShowPrzesycenieCheckboxForm();
+                bool przesycenie = RozciaganieHisto.ShowPrzesycenieCheckboxForm();
                 Image image = activeImage.Image;
                 Bitmap bitmap = new Bitmap(image);
                 Bitmap strechedImage=null;
                 if (przesycenie)
                 {
-                    bitmap = LiczPrzesycenie(bitmap);
+                    bitmap = RozciaganieHisto.LiczPrzesycenie(bitmap);
                 }
                     
-                strechedImage = StretchHistogram(bitmap);
+                strechedImage = RozciaganieHisto.StretchHistogram(bitmap);
                  
-                CreateNewForm((Image)strechedImage, "Wczytany Obraz");
+                CreateNewForm((Image)strechedImage, "RozciaganieLiniowe");
 
             }
             //CreateNewRozciaganieForm("Rozciaganie Liniowe");
          
         }
-        public Bitmap LiczPrzesycenie(Bitmap originalImage) {
-         
-            for (int y = 0; y < originalImage.Height; y++)
-            {
-                for (int x = 0; x < originalImage.Width; x++)
-                {
-                    Color pixelColor = originalImage.GetPixel(x, y);
-              
-                    pixelColor = Color.FromArgb(pixelColor.R / 2 , pixelColor.G / 2 , pixelColor.B /2);
-                    originalImage.SetPixel(x, y, pixelColor);
-                }
-            }
-
-            return originalImage;
-        }
-        public static Bitmap StretchHistogram(Bitmap originalImage)
+        private void ProgowanieFN(object sender, EventArgs e)
         {
-            int minIntensity = 255;
-            int maxIntensity = 0;
-
-            // Znajdź minimalną i maksymalną intensywność piksela w obrazie
-            for (int y = 0; y < originalImage.Height; y++)
+            if (activeImage != null)
             {
-                for (int x = 0; x < originalImage.Width; x++)
+                Bitmap bitmap = new Bitmap(activeImage.Image);
+                int poziomProgowania = OperacjePunktowe.GetPoziomProgowaniaForm();
+                if (poziomProgowania != null && poziomProgowania > 0)
                 {
-                    Color pixelColor = originalImage.GetPixel(x, y);
-                    int intensity = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
-
-                    if (intensity < minIntensity)
-                        minIntensity = intensity;
-
-                    if (intensity > maxIntensity)
-                        maxIntensity = intensity;
-                }
-            }
-
-            // Rozciągnięcie histogramu
-            Bitmap stretchedImage = new Bitmap(originalImage.Width, originalImage.Height);
-
-            for (int y = 0; y < originalImage.Height; y++)
-            {
-                for (int x = 0; x < originalImage.Width; x++)
-                {
-                    Color pixelColor = originalImage.GetPixel(x, y);
-                    int intensity = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
-
-                    // Rozciągnięcie liniowe
-                    int stretchedIntensity = (int)((intensity - minIntensity) / (double)(maxIntensity - minIntensity) * 255);
-
-                    Color newColor = Color.FromArgb(stretchedIntensity, stretchedIntensity, stretchedIntensity);
-                    stretchedImage.SetPixel(x, y, newColor);
-                }
-            }
-
-            return stretchedImage;
-        }
-        private bool ShowPrzesycenieCheckboxForm() {
-            Form rozciaganieForm = new Form();
-            bool result = false;
-            // Ustawienia formularza
-            rozciaganieForm.Text = "Rozciaganie Liniowe";
-            rozciaganieForm.Size = new System.Drawing.Size(300, 150);
-            rozciaganieForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            rozciaganieForm.MaximizeBox = false;
-
-            // Tekst na formularzu
-            Label label = new Label();
-            label.Text = "Przesycenie?";
-            label.Location = new System.Drawing.Point(115, 10);
-            rozciaganieForm.Controls.Add(label);
-
-            // Checkbox na formularzu
-            CheckBox checkBox = new CheckBox();
-            checkBox.Location = new System.Drawing.Point(140, 30);
-            rozciaganieForm.Controls.Add(checkBox);
-
-            // Przycisk na formularzu
-            Button button = new Button();
-            button.Text = "Zatwierdź";
-            button.Location = new System.Drawing.Point(110, 60);
-            button.Click += (s, args) =>
-            {
-                if (checkBox.Checked)
-                {
-                    result = true;
+                    Bitmap result = OperacjePunktowe.ApplyBinaryThreshold(bitmap, poziomProgowania);
+                    CreateNewForm((Image)result, "Negacja Obrazu");
                 }
                 else
                 {
-                    result = false;
+                    MessageBox.Show("Nie podano poziomu progowania!");
+
                 }
-                rozciaganieForm.Close();
-            };
-            rozciaganieForm.Controls.Add(button);
-
-            // Pokaż formularz
-            rozciaganieForm.ShowDialog();
-
-            return result;
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
         }
-        private void CreateNewRozciaganieForm( string formTitle) {
+        private void Neagcja(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                Bitmap bitmap = new Bitmap(activeImage.Image);         
+                Bitmap result = OperacjePunktowe.NegateImage(bitmap);
+                CreateNewForm((Image)result, "Negacja Obrazu");
+                
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+        private void RedukcjaSzarosci(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                Bitmap bitmap = new Bitmap(activeImage.Image);
+                int poziomSzarosci = OperacjePunktowe.GetPoziomySzarościForm();
+                if (poziomSzarosci != null && poziomSzarosci > 0)
+                {
+                    Bitmap result = OperacjePunktowe.ReduceGrayscaleLevelsInImage(bitmap, poziomSzarosci);
+                    CreateNewForm((Image)result, "Redukcja Szarości");
+                }
+                else {
+                    MessageBox.Show("Nie podano poziomu szarości!");
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+ 
+        private void CreateNewRozciaganieForm(string formTitle)
+        {
 
             rozciaganieForm.Text = formTitle;
             rozciaganieForm.Min = 0;
@@ -606,7 +606,6 @@ namespace ProjektAlgorytmyObrazów
             imageForm.Text = imageForm.Text+" (Aktywne)";
         }
 
-        
     }
 
 

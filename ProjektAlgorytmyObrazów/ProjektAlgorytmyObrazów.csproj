@@ -79,6 +79,8 @@
     <Compile Include="Forms\ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Functions\OperacjePunktowe.cs" />
+    <Compile Include="Functions\RozciaganieHisto.cs" />
     <Compile Include="Modele\ImageObject.cs" />
     <Compile Include="Forms\RozciaganieForm.cs">
       <SubType>Form</SubType>
