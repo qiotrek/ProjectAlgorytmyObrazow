@@ -21,6 +21,7 @@ namespace ProjektAlgorytmyObrazów.Modele
         public List<byte> R { get; set; }
         public List<byte> G { get; set; }
         public List<byte> B { get; set; }
+        public bool isGrayscale { get; set; }
 
         public Statiscics statistics { get; set; }
         public Statiscics statisticsR { get; set; }

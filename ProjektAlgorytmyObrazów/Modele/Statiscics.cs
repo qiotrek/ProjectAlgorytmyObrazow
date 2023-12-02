@@ -12,5 +12,6 @@ namespace ProjektAlgorytmyObrazów.Modele
         public int Min { get; set; }
         public int Max { get; set; }
         public double OdchStand { get; set; }
+        public int PixelsCnt { get; set; }
     }
 }

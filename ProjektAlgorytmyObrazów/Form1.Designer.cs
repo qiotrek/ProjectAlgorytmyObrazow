@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using OpenCvSharp;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace ProjektAlgorytmyObrazów
 {
@@ -55,134 +56,315 @@ namespace ProjektAlgorytmyObrazów
 
         private void InitializeComponent()
         {
-            this.Wczytaj = new System.Windows.Forms.Button();
-            this.Duplikuj = new System.Windows.Forms.Button();
-            this.Zapisz = new System.Windows.Forms.Button();
-            this.Histogram = new System.Windows.Forms.Button();
-            this.RozciąganieLiniowe = new System.Windows.Forms.Button();
-            this.RedukcjaPoziomowSzarosci = new System.Windows.Forms.Button();
-            this.Negacja = new System.Windows.Forms.Button();
-            this.Progowanie = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.plikToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.wczytajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplikujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapiszToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analizaToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lutTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageEditionToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.negacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greyscaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progowanieZZachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progowanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rozciaganieLinioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redukcjaSzarosciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manipulacjaHistoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gammaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.equalizacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.operacjeLogiczneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nOTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aNDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xORToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aDDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Wczytaj
+            // menuStrip1
             // 
-            this.Wczytaj.Location = new System.Drawing.Point(3, 2);
-            this.Wczytaj.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Wczytaj.Name = "Wczytaj";
-            this.Wczytaj.Size = new System.Drawing.Size(88, 33);
-            this.Wczytaj.TabIndex = 0;
-            this.Wczytaj.Text = "Wczytaj";
-            this.Wczytaj.UseVisualStyleBackColor = true;
-            this.Wczytaj.Click += new System.EventHandler(this.WczytajFn);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.plikToolStripMenu,
+            this.analizaToolStripMenu,
+            this.imageEditionToolStripMenu,
+            this.manipulacjaHistoToolStripMenuItem,
+            this.operacjeLogiczneToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(669, 28);
+            this.menuStrip1.TabIndex = 9;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // Duplikuj
+            // plikToolStripMenu
             // 
-            this.Duplikuj.Location = new System.Drawing.Point(3, 45);
-            this.Duplikuj.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Duplikuj.Name = "Duplikuj";
-            this.Duplikuj.Size = new System.Drawing.Size(88, 33);
-            this.Duplikuj.TabIndex = 1;
-            this.Duplikuj.Text = "Duplikuj";
-            this.Duplikuj.UseVisualStyleBackColor = true;
-            this.Duplikuj.Click += new System.EventHandler(this.DuplikujFn);
+            this.plikToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wczytajToolStripMenuItem,
+            this.duplikujToolStripMenuItem,
+            this.zapiszToolStripMenuItem});
+            this.plikToolStripMenu.Name = "plikToolStripMenu";
+            this.plikToolStripMenu.Size = new System.Drawing.Size(46, 24);
+            this.plikToolStripMenu.Text = "Plik";
+            this.plikToolStripMenu.Click += new System.EventHandler(this.wczytajToolStripMenuItem_Click);
             // 
-            // Zapisz
+            // wczytajToolStripMenuItem
             // 
-            this.Zapisz.Location = new System.Drawing.Point(3, 85);
-            this.Zapisz.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Zapisz.Name = "Zapisz";
-            this.Zapisz.Size = new System.Drawing.Size(88, 33);
-            this.Zapisz.TabIndex = 2;
-            this.Zapisz.Text = "Zapisz";
-            this.Zapisz.UseVisualStyleBackColor = true;
-            this.Zapisz.Click += new System.EventHandler(this.ZapiszFn);
+            this.wczytajToolStripMenuItem.Name = "wczytajToolStripMenuItem";
+            this.wczytajToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.wczytajToolStripMenuItem.Text = "Wczytaj";
+            this.wczytajToolStripMenuItem.Click += new System.EventHandler(this.WczytajFn);
             // 
-            // Histogram
+            // duplikujToolStripMenuItem
             // 
-            this.Histogram.Location = new System.Drawing.Point(97, 2);
-            this.Histogram.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Histogram.Name = "Histogram";
-            this.Histogram.Size = new System.Drawing.Size(102, 33);
-            this.Histogram.TabIndex = 2;
-            this.Histogram.Text = "Histogram";
-            this.Histogram.UseVisualStyleBackColor = true;
-            this.Histogram.Click += new System.EventHandler(this.HistogramFn);
+            this.duplikujToolStripMenuItem.Name = "duplikujToolStripMenuItem";
+            this.duplikujToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.duplikujToolStripMenuItem.Text = "Duplikuj";
+            this.duplikujToolStripMenuItem.Click += new System.EventHandler(this.DuplikujFn);
             // 
-            // RozciąganieLiniowe
+            // zapiszToolStripMenuItem
             // 
-            this.RozciąganieLiniowe.Location = new System.Drawing.Point(205, 2);
-            this.RozciąganieLiniowe.Name = "RozciąganieLiniowe";
-            this.RozciąganieLiniowe.Size = new System.Drawing.Size(141, 33);
-            this.RozciąganieLiniowe.TabIndex = 3;
-            this.RozciąganieLiniowe.Text = "RozciąganieLiniowe";
-            this.RozciąganieLiniowe.UseVisualStyleBackColor = true;
-            this.RozciąganieLiniowe.Click += new System.EventHandler(this.ShowRozciaganieForm);
+            this.zapiszToolStripMenuItem.Name = "zapiszToolStripMenuItem";
+            this.zapiszToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.zapiszToolStripMenuItem.Text = "Zapisz";
+            this.zapiszToolStripMenuItem.Click += new System.EventHandler(this.ZapiszFn);
             // 
-            // RedukcjaPoziomowSzarosci
+            // analizaToolStripMenu
             // 
-            this.RedukcjaPoziomowSzarosci.Location = new System.Drawing.Point(352, 41);
-            this.RedukcjaPoziomowSzarosci.Name = "RedukcjaPoziomowSzarosci";
-            this.RedukcjaPoziomowSzarosci.Size = new System.Drawing.Size(141, 33);
-            this.RedukcjaPoziomowSzarosci.TabIndex = 4;
-            this.RedukcjaPoziomowSzarosci.Text = "RedukcjaSzarosci";
-            this.RedukcjaPoziomowSzarosci.UseVisualStyleBackColor = true;
-            this.RedukcjaPoziomowSzarosci.Click += new System.EventHandler(this.RedukcjaSzarosci);
+            this.analizaToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.histogramToolStripMenuItem,
+            this.lutTableToolStripMenuItem});
+            this.analizaToolStripMenu.Name = "analizaToolStripMenu";
+            this.analizaToolStripMenu.Size = new System.Drawing.Size(72, 24);
+            this.analizaToolStripMenu.Text = "Analiza";
             // 
-            // Negacja
+            // histogramToolStripMenuItem
             // 
-            this.Negacja.Location = new System.Drawing.Point(352, 2);
-            this.Negacja.Name = "Negacja";
-            this.Negacja.Size = new System.Drawing.Size(141, 33);
-            this.Negacja.TabIndex = 5;
-            this.Negacja.Text = "Negacja";
-            this.Negacja.UseVisualStyleBackColor = true;
-            this.Negacja.Click += new System.EventHandler(this.Neagcja);
+            this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.histogramToolStripMenuItem.Text = "Histogram";
+            this.histogramToolStripMenuItem.Click += new System.EventHandler(this.HistogramFn);
             // 
-            // Progowanie
+            // lutTableToolStripMenuItem
             // 
-            this.Progowanie.Location = new System.Drawing.Point(352, 80);
-            this.Progowanie.Name = "Progowanie";
-            this.Progowanie.Size = new System.Drawing.Size(141, 33);
-            this.Progowanie.TabIndex = 6;
-            this.Progowanie.Text = "Progowanie";
-            this.Progowanie.UseVisualStyleBackColor = true;
-            this.Progowanie.Click += new System.EventHandler(this.ProgowanieFN);
+            this.lutTableToolStripMenuItem.Name = "lutTableToolStripMenuItem";
+            this.lutTableToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.lutTableToolStripMenuItem.Text = "Tablica LUT";
+            this.lutTableToolStripMenuItem.Click += new System.EventHandler(this.LUTTableFn);
+            // 
+            // imageEditionToolStripMenu
+            // 
+            this.imageEditionToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.negacjaToolStripMenuItem,
+            this.greyscaleToolStripMenuItem,
+            this.progowanieZZachToolStripMenuItem,
+            this.progowanieToolStripMenuItem,
+            this.rozciaganieLinioweToolStripMenuItem,
+            this.redukcjaSzarosciToolStripMenuItem});
+            this.imageEditionToolStripMenu.Name = "imageEditionToolStripMenu";
+            this.imageEditionToolStripMenu.Size = new System.Drawing.Size(112, 24);
+            this.imageEditionToolStripMenu.Text = "ImageEdition";
+            // 
+            // negacjaToolStripMenuItem
+            // 
+            this.negacjaToolStripMenuItem.Name = "negacjaToolStripMenuItem";
+            this.negacjaToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.negacjaToolStripMenuItem.Text = "Negacja";
+            this.negacjaToolStripMenuItem.Click += new System.EventHandler(this.NeagcjaFn);
+            // 
+            // greyscaleToolStripMenuItem
+            // 
+            this.greyscaleToolStripMenuItem.Name = "greyscaleToolStripMenuItem";
+            this.greyscaleToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.greyscaleToolStripMenuItem.Text = "ToGreyScale";
+            this.greyscaleToolStripMenuItem.Click += new System.EventHandler(this.ToGreyScaleFN);
+            // 
+            // progowanieZZachToolStripMenuItem
+            // 
+            this.progowanieZZachToolStripMenuItem.Name = "progowanieZZachToolStripMenuItem";
+            this.progowanieZZachToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.progowanieZZachToolStripMenuItem.Text = "ProgowanieZZach";
+            this.progowanieZZachToolStripMenuItem.Click += new System.EventHandler(this.ProgowanieFNGreyscaleLvl);
+            // 
+            // progowanieToolStripMenuItem
+            // 
+            this.progowanieToolStripMenuItem.Name = "progowanieToolStripMenuItem";
+            this.progowanieToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.progowanieToolStripMenuItem.Text = "Progowanie";
+            this.progowanieToolStripMenuItem.Click += new System.EventHandler(this.ProgowanieFN);
+            // 
+            // rozciaganieLinioweToolStripMenuItem
+            // 
+            this.rozciaganieLinioweToolStripMenuItem.Name = "rozciaganieLinioweToolStripMenuItem";
+            this.rozciaganieLinioweToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.rozciaganieLinioweToolStripMenuItem.Text = "RozciaganieLiniowe";
+            this.rozciaganieLinioweToolStripMenuItem.Click += new System.EventHandler(this.ShowRozciaganieFormFN);
+            // 
+            // redukcjaSzarosciToolStripMenuItem
+            // 
+            this.redukcjaSzarosciToolStripMenuItem.Name = "redukcjaSzarosciToolStripMenuItem";
+            this.redukcjaSzarosciToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
+            this.redukcjaSzarosciToolStripMenuItem.Text = "RedukcjaPozSzarości";
+            this.redukcjaSzarosciToolStripMenuItem.Click += new System.EventHandler(this.RedukcjaSzarosciFN);
+            // 
+            // manipulacjaHistoToolStripMenuItem
+            // 
+            this.manipulacjaHistoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gammaToolStripMenuItem1,
+            this.equalizacjaToolStripMenuItem});
+            this.manipulacjaHistoToolStripMenuItem.Name = "manipulacjaHistoToolStripMenuItem";
+            this.manipulacjaHistoToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.manipulacjaHistoToolStripMenuItem.Text = "Manipulacja Histo";
+            // 
+            // gammaToolStripMenuItem1
+            // 
+            this.gammaToolStripMenuItem1.Name = "gammaToolStripMenuItem1";
+            this.gammaToolStripMenuItem1.Size = new System.Drawing.Size(167, 26);
+            this.gammaToolStripMenuItem1.Text = "Gamma";
+            this.gammaToolStripMenuItem1.Click += new System.EventHandler(this.GammaFn);
+            // 
+            // equalizacjaToolStripMenuItem
+            // 
+            this.equalizacjaToolStripMenuItem.Name = "equalizacjaToolStripMenuItem";
+            this.equalizacjaToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.equalizacjaToolStripMenuItem.Text = "Equalizacja";
+            this.equalizacjaToolStripMenuItem.Click += new System.EventHandler(this.EqualizacjaFn);
+            // 
+            // operacjeLogiczneToolStripMenuItem
+            // 
+            this.operacjeLogiczneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nOTToolStripMenuItem,
+            this.aNDToolStripMenuItem,
+            this.oRToolStripMenuItem,
+            this.xORToolStripMenuItem,
+            this.aDDToolStripMenuItem});
+            this.operacjeLogiczneToolStripMenuItem.Name = "operacjeLogiczneToolStripMenuItem";
+            this.operacjeLogiczneToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
+            this.operacjeLogiczneToolStripMenuItem.Text = "Operacje Logiczne";
+            // 
+            // nOTToolStripMenuItem
+            // 
+            this.nOTToolStripMenuItem.Name = "nOTToolStripMenuItem";
+            this.nOTToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.nOTToolStripMenuItem.Text = "NOT";
+            this.nOTToolStripMenuItem.Click += new System.EventHandler(this.NOTFn);
+            // 
+            // aNDToolStripMenuItem
+            // 
+            this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
+            this.aNDToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aNDToolStripMenuItem.Text = "AND";
+            this.aNDToolStripMenuItem.Click += new System.EventHandler(this.ANDFn);
+            // 
+            // oRToolStripMenuItem
+            // 
+            this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
+            this.oRToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.oRToolStripMenuItem.Text = "OR";
+            this.oRToolStripMenuItem.Click += new System.EventHandler(this.ORFn);
+            // 
+            // xORToolStripMenuItem
+            // 
+            this.xORToolStripMenuItem.Name = "xORToolStripMenuItem";
+            this.xORToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.xORToolStripMenuItem.Text = "XOR";
+            this.xORToolStripMenuItem.Click += new System.EventHandler(this.XORFn);
+            // 
+            // aDDToolStripMenuItem
+            // 
+            this.aDDToolStripMenuItem.Name = "aDDToolStripMenuItem";
+            this.aDDToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aDDToolStripMenuItem.Text = "ADD";
+            this.aDDToolStripMenuItem.Click += new System.EventHandler(this.ADDFn);
 
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 129);
-            this.Controls.Add(this.Progowanie);
-            this.Controls.Add(this.Negacja);
-            this.Controls.Add(this.RedukcjaPoziomowSzarosci);
-            this.Controls.Add(this.RozciąganieLiniowe);
-            this.Controls.Add(this.Histogram);
-            this.Controls.Add(this.Zapisz);
-            this.Controls.Add(this.Duplikuj);
-            this.Controls.Add(this.Wczytaj);
+            this.ClientSize = new System.Drawing.Size(669, 65);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "AlgorytmyPrzetwarzaniaObrazow";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button Wczytaj;
-        private System.Windows.Forms.Button Duplikuj;
-        private System.Windows.Forms.Button Zapisz;
-        private System.Windows.Forms.Button Histogram;
-        private Button RozciąganieLiniowe;
-        private Button RedukcjaPoziomowSzarosci;
-        private Button Negacja;
-        private Button Progowanie;
+        private void ADDFn(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
-        private void ShowRozciaganieForm(object sender, EventArgs e) {
+            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+            string secoundFilePath = null;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                secoundFilePath = openFileDialog.FileName;
+            }
+            Mat imageA = new Mat(activeImage.ImagePath);
+            Mat imageB = new Mat(secoundFilePath);
+            Mat resultImage = Logiczne.LogicalAdd(imageA, imageB);
+            Cv2.ImShow("ADD Result", resultImage);
+        }
+        private void ANDFn(object sender, EventArgs e) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+            string secoundFilePath = null;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                secoundFilePath = openFileDialog.FileName;              
+            }
+            Mat imageA = new Mat(activeImage.ImagePath);
+            Mat imageB = new Mat(secoundFilePath);
+            Mat resultImage = Logiczne.LogicalAND(imageA, imageB);
+            Cv2.ImShow("AND Result", resultImage);
+        }
+        private void ORFn(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+            string secoundFilePath = null;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                secoundFilePath = openFileDialog.FileName;
+            }
+            Mat imageA = new Mat(activeImage.ImagePath);
+            Mat imageB = new Mat(secoundFilePath);
+            Mat resultImage = Logiczne.LogicalOR(imageA, imageB);
+            Cv2.ImShow("OR Result", resultImage);
+        }
+        private void NOTFn(object sender, EventArgs e)
+        {      
+            Mat imageA = new Mat(activeImage.ImagePath);
+            Mat resultImage = Logiczne.LogicalNOT(imageA);
+            Cv2.ImShow("NOT Result", resultImage);
+        }
+        private void XORFn(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+            string secoundFilePath = null;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                secoundFilePath = openFileDialog.FileName;
+            }
+            Mat imageA = new Mat(activeImage.ImagePath);
+            Mat imageB = new Mat(secoundFilePath);
+            Mat resultImage = Logiczne.LogicalXor(imageA, imageB);
+            Cv2.ImShow("XOR Result", resultImage);
+        }
+        private void ShowRozciaganieFormFN(object sender, EventArgs e) {
             if (activeImage == null)
             {
                 MessageBox.Show("Najpierw wybierz aktywne zdjęcie");
@@ -205,7 +387,118 @@ namespace ProjektAlgorytmyObrazów
             //CreateNewRozciaganieForm("Rozciaganie Liniowe");
          
         }
-        private void ProgowanieFN(object sender, EventArgs e)
+        private void EqualizacjaFn(object sender, EventArgs e) {
+            bool valid = CheckAndPrepareActiveImage();
+            if (valid)
+            {
+                if (activeImage.isGrayscale)
+                {
+                    int[] dystrybuanta = PrepareDystrybuanta(activeImage.histogram);
+                    int[] equalizeLUT = EqualizacjaNewLUT(dystrybuanta);
+                    Image newImage = ManipulacjaHisto.LUTToImage(new Bitmap(activeImage.Image), equalizeLUT);
+                    CreateNewForm(newImage, "Equalizacja");
+                }
+                else
+                {
+                    MessageBox.Show("Użyj obrazu szaroodcieniowego!");
+
+                }
+            }
+        }
+        private int[] EqualizacjaNewLUT(int[] dystrybuanta) {
+            int[]  resutl =new int[256];
+            int pierwszaNiezerowa = 0;
+            for (int i = 0; i < dystrybuanta.Length; i++)
+            {
+                if (dystrybuanta[i] != 0)
+                {
+                    pierwszaNiezerowa=dystrybuanta[i];
+                    break;
+                }
+            }
+            for (int i = 0; i < dystrybuanta.Length; i++)
+            {
+                resutl[i] = ((dystrybuanta[i] - pierwszaNiezerowa) / (1 - pierwszaNiezerowa)) * 255;
+            }
+            return resutl;
+        }
+        private int[] PrepareDystrybuanta(int[] LUT)
+        {
+            int[] dystrybuanta = new int[256];
+            int allSum = 0;
+            for (int i = 0; i < LUT.Length; i++)
+            {
+                allSum = allSum + LUT[i];
+            }
+            for (int i = 0; i < LUT.Length; i++)
+            {
+                int sum = 0;
+                for (int j = 0; j <= i; j++)
+                {
+                    sum=sum + LUT[j];
+                }
+
+                dystrybuanta[i] =(int)(sum/ allSum);
+                sum = 0;
+            }
+            return dystrybuanta;
+        }
+        private bool CheckAndPrepareActiveImage()
+        {
+            bool result = false;
+            if (activeImage != null)
+            {
+                if ((activeImage.histogramB == null || activeImage.histogramB.Count() == 0) || (activeImage.histogram == null || activeImage.histogram.Count() == 0))
+                {
+                    GenerateHistogram();
+                   
+                }
+                result = true;
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+            return result;
+        }
+        private void GammaFn(object sender, EventArgs e)
+        {
+                bool valid= CheckAndPrepareActiveImage();
+                if (valid)
+                {
+                    double gammaParam = ManipulacjaHisto.GetGammaParameterFromUser();
+                    if (activeImage.isGrayscale)
+                    {
+                        int[] newGreyscaleLUT = UseGammaFormula(activeImage.histogram, gammaParam);
+                        Image newImage = ManipulacjaHisto.LUTToImage(new Bitmap(activeImage.Image), newGreyscaleLUT);
+                        CreateNewForm(newImage, "Funkcja Gamma");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Użyj obrazu szaroodcieniowego!");
+
+                    }
+                }            
+        }
+
+        private int[] UseGammaFormula(int[] lutTable, double y)
+        {
+            int[] result = new int[lutTable.Length];
+
+            for (int i = 0; i < lutTable.Length; i++)
+            {
+                double correctedValue = Math.Pow(i, 1.0 / y);
+
+                // Możesz dodać ograniczenia, aby zapewnić, że wartości są w zakresie 0-255
+                correctedValue = Math.Max(0, Math.Min(255, correctedValue));
+
+                result[i] = (int)Math.Round(correctedValue);
+            }
+
+            return result;
+        }
+
+        private void ProgowanieFNGreyscaleLvl(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
@@ -213,8 +506,8 @@ namespace ProjektAlgorytmyObrazów
                 int poziomProgowania = OperacjePunktowe.GetPoziomProgowaniaForm();
                 if (poziomProgowania != null && poziomProgowania > 0)
                 {
-                    Bitmap result = OperacjePunktowe.ApplyBinaryThreshold(bitmap, poziomProgowania);
-                    CreateNewForm((Image)result, "Negacja Obrazu");
+                    Bitmap result = OperacjePunktowe.ApplyBinaryThresholdWithGrayLevels(bitmap, poziomProgowania);
+                    CreateNewForm((Image)result, "Progowanie Binarne z zachowaniem szarości");
                 }
                 else
                 {
@@ -227,7 +520,29 @@ namespace ProjektAlgorytmyObrazów
                 MessageBox.Show("Najpierw wybierz obraz!");
             }
         }
-        private void Neagcja(object sender, EventArgs e)
+        private void ProgowanieFN(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                Bitmap bitmap = new Bitmap(activeImage.Image);
+                int poziomProgowania = OperacjePunktowe.GetPoziomProgowaniaForm();
+                if (poziomProgowania != null && poziomProgowania > 0)
+                {
+                    Bitmap result = OperacjePunktowe.ApplyBinaryThreshold(bitmap, poziomProgowania);
+                    CreateNewForm((Image)result, "Progowanie binarne");
+                }
+                else
+                {
+                    MessageBox.Show("Nie podano poziomu progowania!");
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+        private void NeagcjaFn(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
@@ -241,7 +556,7 @@ namespace ProjektAlgorytmyObrazów
                 MessageBox.Show("Najpierw wybierz obraz!");
             }
         }
-        private void RedukcjaSzarosci(object sender, EventArgs e)
+        private void RedukcjaSzarosciFN(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
@@ -286,11 +601,46 @@ namespace ProjektAlgorytmyObrazów
             activeImage.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
             return filePath;
         }
+
+        private void LUTTableFn(object sender, EventArgs e)
+        {
+            GenerateLUTTable();
+            
+
+        }
+        private void GenerateLUTTable() {
+            if (activeImage != null)
+            {
+                if ((activeImage.histogramB == null || activeImage.histogramB.Count() == 0)||(activeImage.histogram == null || activeImage.histogram.Count() == 0))
+                {
+                    GenerateHistogram();
+                }
+                bool isGrayscale = true;
+                if (activeImage.greyScale == null || activeImage.greyScale.Count() > 0)
+                {
+                    isGrayscale = false;
+                }
+                //var lutData= activeImage.histogram;
+                using (var lutTableForm = new LUTTableForm(activeImage, isGrayscale))
+                {
+                    lutTableForm.Show();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wczytaj obraz oraz zaznacz obraz.");
+            }
+        }
         private void HistogramFn(object sender, EventArgs e)
+        {
+            GenerateHistogram();
+        }
+        private void GenerateHistogram() 
         {
             if (activeImage != null)
             {
-                Mat Image=new Mat();
+                Mat Image = new Mat();
                 if (activeImage.ImagePath != null)
                 {
                     Image = new Mat(activeImage.ImagePath);
@@ -298,46 +648,46 @@ namespace ProjektAlgorytmyObrazów
                 else
                 {
                     string filePath = ImageToPath();
-                    Image =new Mat(filePath);
+                    Image = new Mat(filePath);
                 }
                 //Mat grayscaleImage = new Mat();
                 //Cv2.CvtColor(Image, Image, ColorConversionCodes.BGR2GRAY);
 
                 int[] lutTable;
-      
-                    // Obraz kolorowy - generuj trzy tablice LUT dla każdego kanału RGB
-                    List<byte>[] channelPixels = SplitChannels(Image);
 
-                
-                    int[] lutB = CreateLUT(channelPixels[0].ToList());
-                    activeImage.statisticsB = MathFns.CalculateStatistics(channelPixels[0], lutB);
-                    activeImage.histogramB = lutB;
-
-                    int[] lutG = CreateLUT(channelPixels[1].ToList());
-                    activeImage.statisticsG = MathFns.CalculateStatistics(channelPixels[1], lutG);
-                    activeImage.histogramG = lutG;
+                // Obraz kolorowy - generuj trzy tablice LUT dla każdego kanału RGB
+                List<byte>[] channelPixels = SplitChannels(Image);
 
 
-                    int[] lutR = CreateLUT(channelPixels[2].ToList());
-                    activeImage.statisticsR = MathFns.CalculateStatistics(channelPixels[2], lutR);
-                    activeImage.histogramR = lutR;
+                int[] lutB = CreateLUT(channelPixels[0].ToList());
+                activeImage.statisticsB = MathFns.CalculateStatistics(channelPixels[0], lutB);
+                activeImage.histogramB = lutB;
 
-                    bool areLUTsEqual = lutR.SequenceEqual(lutB) && lutB.SequenceEqual(lutG);
+                int[] lutG = CreateLUT(channelPixels[1].ToList());
+                activeImage.statisticsG = MathFns.CalculateStatistics(channelPixels[1], lutG);
+                activeImage.histogramG = lutG;
 
-                    if (areLUTsEqual)
-                    {
 
-                        activeImage.histogram = lutG;
-                        activeImage.statistics = MathFns.CalculateStatistics(channelPixels[1], lutG);
-                        ShowGreyScaleHistogram(lutG);
-                        
-                    }
-                    else {
-                        ShowRGBHistogram(lutR, lutG, lutB);
-                    }
-                   
-                
+                int[] lutR = CreateLUT(channelPixels[2].ToList());
+                activeImage.statisticsR = MathFns.CalculateStatistics(channelPixels[2], lutR);
+                activeImage.histogramR = lutR;
 
+                bool areLUTsEqual = lutR.SequenceEqual(lutB) && lutB.SequenceEqual(lutG);
+
+                if (areLUTsEqual)
+                {
+                    activeImage.isGrayscale = true;
+                    activeImage.histogram = lutG;
+                    activeImage.statistics = MathFns.CalculateStatistics(channelPixels[1], lutG);
+                    ShowGreyScaleHistogram(lutG);
+
+                }
+                else
+                {
+                    activeImage.isGrayscale = false;
+                    ShowRGBHistogram(lutR, lutG, lutB);
+
+                }
 
             }
             else
@@ -345,7 +695,6 @@ namespace ProjektAlgorytmyObrazów
                 MessageBox.Show("Najpierw wczytaj obraz przed próbą utworzenia histogramu.");
             }
         }
-
         private void ShowGreyScaleHistogram(int[] lutTable) {
 
             HistoForm histoForm = new HistoForm();
@@ -358,7 +707,7 @@ namespace ProjektAlgorytmyObrazów
             // Opcjonalnie możesz także wyświetlić oryginalny obraz
             Image imageToShow = Image.FromFile(activeImage.ImagePath);
             histoForm.DisplayImage(imageToShow);
-            histoForm.DisplayStatistics(activeImage.statistics.Mediana, activeImage.statistics.Min, activeImage.statistics.Max, activeImage.statistics.OdchStand);
+            histoForm.DisplayStatistics(activeImage.statistics.Mediana, activeImage.statistics.Min, activeImage.statistics.Max, activeImage.statistics.OdchStand,activeImage.statistics.PixelsCnt);
 
             // Wyświetlanie formularza
             histoForm.Show();
@@ -447,6 +796,8 @@ namespace ProjektAlgorytmyObrazów
            
         }
 
+        
+
         private void DuplikujFn(object sender, EventArgs e)
         {
             if (activeImage != null)
@@ -457,26 +808,41 @@ namespace ProjektAlgorytmyObrazów
             {
                 MessageBox.Show("Najpierw wczytaj obraz przed próbą duplikacji.");
             }
-            //if (activeImage != null)
-            //{
-            //    // Load the color image
-            //    Mat colorImage = Cv2.ImRead(activeImage.ImagePath);
+           
+        }
 
-            //    // Convert the color image to grayscale
-            //    Mat grayscaleImage = new Mat();
-            //    Cv2.CvtColor(colorImage, grayscaleImage, ColorConversionCodes.BGR2GRAY);
 
-            //    // Save the grayscale image
-            //    string outputPath = "C:\\Users\\piotr\\Pictures\\grayscale_image.jpg";  // Replace with your desired path and filename
-            //    Cv2.ImWrite(outputPath, grayscaleImage);
+        private void ToGreyScaleFN(object sender, EventArgs e) {
+            if (activeImage != null)
+            {
+                Bitmap originalBitmap = new Bitmap(activeImage.Image);
 
-            //    // Optionally, create a new form with the grayscale image
-            //    // CreateNewForm(outputPath, "Duplikat Obrazu");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Najpierw wczytaj obraz przed próbą duplikacji.");
-            //}
+                // Twórz nowy obraz w odcieniach szarości
+                Bitmap grayscaleBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
+
+                for (int x = 0; x < originalBitmap.Width; x++)
+                {
+                    for (int y = 0; y < originalBitmap.Height; y++)
+                    {
+                        Color originalColor = originalBitmap.GetPixel(x, y);
+
+                        // Oblicz średnią wartość składowych koloru
+                        int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
+
+                        // Ustaw nowy kolor odcienia szarości
+                        Color newColor = Color.FromArgb(averageBrightness, averageBrightness, averageBrightness);
+
+                        // Ustaw piksel w obrazie w odcieniach szarości
+                        grayscaleBitmap.SetPixel(x, y, newColor);
+                    }
+                }
+               
+                CreateNewForm((Image)grayscaleBitmap, "Obraz szaroodcieniowy");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wczytaj obraz przed próbą duplikacji.");
+            }
         }
 
         private void ZapiszFn(object sender, EventArgs e)
@@ -542,6 +908,7 @@ namespace ProjektAlgorytmyObrazów
             ConfigureImageForm(imageForm, pictureBox, null, image);
         }
 
+
         private void ConfigureImageForm(ImageForm imageForm, PictureBox pictureBox, string filePath,Image image=null)
         {
             imageForm.Controls.Add(pictureBox);
@@ -593,19 +960,50 @@ namespace ProjektAlgorytmyObrazów
 
         private void SetActiveImageForm(ImageForm imageForm)
         {
+            if (activeForm != null&& activeForm.Text.Contains("(Aktywne)"))
+            {
+                activeForm.Text = activeForm.Text.Replace(" (Aktywne)", "").Trim();
+            }
             activeImage = imageForm.Image;
             rozciaganieForm.activeImage = activeImage;
-            if (activeForm != null)
-            {
-                // Oznacz poprzednie okno jako nieaktywne
-                activeForm.Text = "Wczytany Obraz";
-            }
+            //if (activeForm != null)
+            //{
+            //    // Oznacz poprzednie okno jako nieaktywne
+            //    activeForm.Text = "Wczytany Obraz";
+            //}
 
             // Ustaw nowe okno jako aktywne
             activeForm = imageForm;
-            imageForm.Text = imageForm.Text+" (Aktywne)";
+            if (!imageForm.Text.Contains("(Aktywne)"))
+            {
+                imageForm.Text = imageForm.Text + " (Aktywne)";
+            }
         }
 
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem plikToolStripMenu;
+        private ToolStripMenuItem wczytajToolStripMenuItem;
+        private ToolStripMenuItem duplikujToolStripMenuItem;
+        private ToolStripMenuItem zapiszToolStripMenuItem;
+        private ToolStripMenuItem analizaToolStripMenu;
+        private ToolStripMenuItem histogramToolStripMenuItem;
+        private ToolStripMenuItem imageEditionToolStripMenu;
+        private ToolStripMenuItem negacjaToolStripMenuItem;
+        private ToolStripMenuItem greyscaleToolStripMenuItem;
+        private ToolStripMenuItem progowanieToolStripMenuItem;
+        private ToolStripMenuItem progowanieZZachToolStripMenuItem;
+        private ToolStripMenuItem rozciaganieLinioweToolStripMenuItem;
+        private ToolStripMenuItem redukcjaSzarosciToolStripMenuItem;
+        private ToolStripMenuItem lutTableToolStripMenuItem;
+        private ToolStripMenuItem manipulacjaHistoToolStripMenuItem;
+        private ToolStripMenuItem gammaToolStripMenuItem1;
+        private ToolStripMenuItem equalizacjaToolStripMenuItem;
+        private ToolStripMenuItem operacjeLogiczneToolStripMenuItem;
+        private ToolStripMenuItem nOTToolStripMenuItem;
+        private ToolStripMenuItem aNDToolStripMenuItem;
+        private ToolStripMenuItem oRToolStripMenuItem;
+        private ToolStripMenuItem xORToolStripMenuItem;
+        private ToolStripMenuItem aDDToolStripMenuItem;
     }
 
 
