@@ -106,6 +106,7 @@
     <Compile Include="Forms\LUTTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Functions\ImageConverters.cs" />
     <Compile Include="Functions\Logiczne.cs" />
     <Compile Include="Functions\ManipulacjaHisto.cs" />
     <Compile Include="Functions\MathFns.cs" />

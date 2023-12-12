@@ -80,6 +80,12 @@ namespace ProjektAlgorytmyObrazów
             this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xORToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aDDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oPERACJEZLICZBAMIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dodawanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dzielenieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnożenieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.różnicaBezwzględnaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odejmowanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +100,7 @@ namespace ProjektAlgorytmyObrazów
             this.operacjeLogiczneToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(669, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(682, 28);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -238,7 +244,8 @@ namespace ProjektAlgorytmyObrazów
             this.aNDToolStripMenuItem,
             this.oRToolStripMenuItem,
             this.xORToolStripMenuItem,
-            this.aDDToolStripMenuItem});
+            this.aDDToolStripMenuItem,
+            this.oPERACJEZLICZBAMIToolStripMenuItem});
             this.operacjeLogiczneToolStripMenuItem.Name = "operacjeLogiczneToolStripMenuItem";
             this.operacjeLogiczneToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
             this.operacjeLogiczneToolStripMenuItem.Text = "Operacje Logiczne";
@@ -246,44 +253,93 @@ namespace ProjektAlgorytmyObrazów
             // nOTToolStripMenuItem
             // 
             this.nOTToolStripMenuItem.Name = "nOTToolStripMenuItem";
-            this.nOTToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.nOTToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
             this.nOTToolStripMenuItem.Text = "NOT";
             this.nOTToolStripMenuItem.Click += new System.EventHandler(this.NOTFn);
             // 
             // aNDToolStripMenuItem
             // 
             this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
-            this.aNDToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aNDToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
             this.aNDToolStripMenuItem.Text = "AND";
             this.aNDToolStripMenuItem.Click += new System.EventHandler(this.ANDFn);
             // 
             // oRToolStripMenuItem
             // 
             this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
-            this.oRToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.oRToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
             this.oRToolStripMenuItem.Text = "OR";
             this.oRToolStripMenuItem.Click += new System.EventHandler(this.ORFn);
             // 
             // xORToolStripMenuItem
             // 
             this.xORToolStripMenuItem.Name = "xORToolStripMenuItem";
-            this.xORToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.xORToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
             this.xORToolStripMenuItem.Text = "XOR";
             this.xORToolStripMenuItem.Click += new System.EventHandler(this.XORFn);
             // 
             // aDDToolStripMenuItem
             // 
             this.aDDToolStripMenuItem.Name = "aDDToolStripMenuItem";
-            this.aDDToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.aDDToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
             this.aDDToolStripMenuItem.Text = "ADD";
             this.aDDToolStripMenuItem.Click += new System.EventHandler(this.ADDFn);
+            // 
+            // oPERACJEZLICZBAMIToolStripMenuItem
+            // 
+            this.oPERACJEZLICZBAMIToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodawanieToolStripMenuItem,
+            this.odejmowanieToolStripMenuItem,
+            this.dzielenieToolStripMenuItem,
+            this.mnożenieToolStripMenuItem,
+            this.różnicaBezwzględnaToolStripMenuItem});
+            this.oPERACJEZLICZBAMIToolStripMenuItem.Name = "oPERACJEZLICZBAMIToolStripMenuItem";
+            this.oPERACJEZLICZBAMIToolStripMenuItem.Size = new System.Drawing.Size(242, 26);
+            this.oPERACJEZLICZBAMIToolStripMenuItem.Text = "OPERACJE Z LICZBAMI";
+            // 
+            // dodawanieToolStripMenuItem
+            // 
+            this.dodawanieToolStripMenuItem.Name = "dodawanieToolStripMenuItem";
+            this.dodawanieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.dodawanieToolStripMenuItem.Text = "Dodawanie";
+            this.dodawanieToolStripMenuItem.Click += new System.EventHandler(this.ADDValueFn);
+            // 
+            // dzielenieToolStripMenuItem
+            // 
+            this.dzielenieToolStripMenuItem.Name = "dzielenieToolStripMenuItem";
+            this.dzielenieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.dzielenieToolStripMenuItem.Text = "Dzielenie";
+            this.dzielenieToolStripMenuItem.Click += new System.EventHandler(this.DivideValueFn);
+
+            // 
+            // mnożenieToolStripMenuItem
+            // 
+            this.mnożenieToolStripMenuItem.Name = "mnożenieToolStripMenuItem";
+            this.mnożenieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.mnożenieToolStripMenuItem.Text = "Mnożenie";
+            this.mnożenieToolStripMenuItem.Click += new System.EventHandler(this.MultiplyValueFn);
+
+            // 
+            // różnicaBezwzględnaToolStripMenuItem
+            // 
+            this.różnicaBezwzględnaToolStripMenuItem.Name = "różnicaBezwzględnaToolStripMenuItem";
+            this.różnicaBezwzględnaToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.różnicaBezwzględnaToolStripMenuItem.Text = "Różnica Bezwzględna";
+            this.różnicaBezwzględnaToolStripMenuItem.Click += new System.EventHandler(this.AbsoluteDifferenceFn);
+            // 
+            // odejmowanieToolStripMenuItem
+            // 
+            this.odejmowanieToolStripMenuItem.Name = "odejmowanieToolStripMenuItem";
+            this.odejmowanieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.odejmowanieToolStripMenuItem.Text = "Odejmowanie";
+            this.odejmowanieToolStripMenuItem.Click += new System.EventHandler(this.SubstractValueFn);
 
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 65);
+            this.ClientSize = new System.Drawing.Size(682, 73);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -299,49 +355,155 @@ namespace ProjektAlgorytmyObrazów
 
         #endregion
 
+        private void ADDValueFn(object sender, EventArgs e)
+        {
+            if (activeImage != null) 
+            { 
+                int addedValue = Logiczne.GetValueForm("Podaj wartość która ma zostać dodana", "Wartość do dodania");
+                Bitmap image = new Bitmap(activeImage.ImagePath);
+                Bitmap resultImage = Logiczne.AddValueToImage(image, addedValue);
+                CreateNewForm((Image)resultImage,"ADD Value Result");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+
+        private void SubstractValueFn(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                int substractValue = Logiczne.GetValueForm("Podaj wartość która ma zostać odjęta", "Wartość do odjęcia");
+                Bitmap image = new Bitmap(activeImage.ImagePath);
+                Bitmap resultImage = Logiczne.SubtractValueFromImage(image, substractValue);
+                CreateNewForm((Image)resultImage, "Substract Value Result");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+
+        private void MultiplyValueFn(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                int multiplyValue = Logiczne.GetValueForm("Podaj wartość która ma zostać pomnożona", "Wartość do mnożenia");
+                Bitmap image = new Bitmap(activeImage.ImagePath);
+                Bitmap resultImage = Logiczne.MultiplyImageByValue(image, multiplyValue);
+                CreateNewForm((Image)resultImage, "Multiply Value Result");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+
+        private void DivideValueFn(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                int divideValue = Logiczne.GetValueForm("Podaj wartość która ma zostać podzielona", "Wartość do dzielenia");
+                Bitmap image = new Bitmap(activeImage.ImagePath);
+                Bitmap resultImage = Logiczne.DivideImageByValue(image, divideValue);
+                CreateNewForm((Image)resultImage, "Divide Value Result");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
+
+        private void AbsoluteDifferenceFn(object sender, EventArgs e)
+        {
+            if (activeImage != null)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+                string secoundFilePath = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    secoundFilePath = openFileDialog.FileName;
+                }
+                Bitmap imageA = new Bitmap(activeImage.ImagePath);
+                Bitmap imageB = new Bitmap(secoundFilePath);
+                Bitmap resultImage = Logiczne.CalculateAbsoluteDifference(imageA, imageB);
+                CreateNewForm((Image)resultImage, "AbsoluteDifference Value Result");
+            }
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
+        }
         private void ADDFn(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
-            string secoundFilePath = null;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (activeImage != null)
             {
-                secoundFilePath = openFileDialog.FileName;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+                string secoundFilePath = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    secoundFilePath = openFileDialog.FileName;
+                }
+                Mat imageA = new Mat(activeImage.ImagePath);
+                Mat imageB = new Mat(secoundFilePath);
+                Mat resultImage = Logiczne.LogicalAdd(imageA, imageB);
+                Bitmap result= ImageConverters.ConvertMatToBitmap(resultImage);
+                CreateNewForm((Image)result, "ADD Result");
+
+                //Cv2.ImShow("ADD Result", resultImage);
             }
-            Mat imageA = new Mat(activeImage.ImagePath);
-            Mat imageB = new Mat(secoundFilePath);
-            Mat resultImage = Logiczne.LogicalAdd(imageA, imageB);
-            Cv2.ImShow("ADD Result", resultImage);
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
         }
         private void ANDFn(object sender, EventArgs e) {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
-            string secoundFilePath = null;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (activeImage != null)
             {
-                secoundFilePath = openFileDialog.FileName;              
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+                string secoundFilePath = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    secoundFilePath = openFileDialog.FileName;              
+                }
+                Mat imageA = new Mat(activeImage.ImagePath);
+                Mat imageB = new Mat(secoundFilePath);
+                Mat resultImage = Logiczne.LogicalAND(imageA, imageB);
+                Cv2.ImShow("AND Result", resultImage);
             }
-            Mat imageA = new Mat(activeImage.ImagePath);
-            Mat imageB = new Mat(secoundFilePath);
-            Mat resultImage = Logiczne.LogicalAND(imageA, imageB);
-            Cv2.ImShow("AND Result", resultImage);
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
         }
         private void ORFn(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
-            string secoundFilePath = null;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (activeImage != null)
             {
-                secoundFilePath = openFileDialog.FileName;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+                string secoundFilePath = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    secoundFilePath = openFileDialog.FileName;
+                }
+                Mat imageA = new Mat(activeImage.ImagePath);
+                Mat imageB = new Mat(secoundFilePath);
+                Mat resultImage = Logiczne.LogicalOR(imageA, imageB);
+                Cv2.ImShow("OR Result", resultImage);
             }
-            Mat imageA = new Mat(activeImage.ImagePath);
-            Mat imageB = new Mat(secoundFilePath);
-            Mat resultImage = Logiczne.LogicalOR(imageA, imageB);
-            Cv2.ImShow("OR Result", resultImage);
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
         }
         private void NOTFn(object sender, EventArgs e)
         {      
@@ -351,18 +513,25 @@ namespace ProjektAlgorytmyObrazów
         }
         private void XORFn(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
-            string secoundFilePath = null;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (activeImage != null)
             {
-                secoundFilePath = openFileDialog.FileName;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Filter = "Obrazy|*.jpg;*.tif;*.png;*.bmp|Wszystkie pliki|*.*";
+                string secoundFilePath = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    secoundFilePath = openFileDialog.FileName;
+                }
+                Mat imageA = new Mat(activeImage.ImagePath);
+                Mat imageB = new Mat(secoundFilePath);
+                Mat resultImage = Logiczne.LogicalXor(imageA, imageB);
+                Cv2.ImShow("XOR Result", resultImage);
             }
-            Mat imageA = new Mat(activeImage.ImagePath);
-            Mat imageB = new Mat(secoundFilePath);
-            Mat resultImage = Logiczne.LogicalXor(imageA, imageB);
-            Cv2.ImShow("XOR Result", resultImage);
+            else
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+            }
         }
         private void ShowRozciaganieFormFN(object sender, EventArgs e) {
             if (activeImage == null)
@@ -393,9 +562,9 @@ namespace ProjektAlgorytmyObrazów
             {
                 if (activeImage.isGrayscale)
                 {
-                    int[] dystrybuanta = PrepareDystrybuanta(activeImage.histogram);
-                    int[] equalizeLUT = EqualizacjaNewLUT(dystrybuanta);
-                    Image newImage = ManipulacjaHisto.LUTToImage(new Bitmap(activeImage.Image), equalizeLUT);
+                    //int[] dystrybuanta = PrepareDystrybuanta(activeImage.histogram);
+                    int[] equalizeLUT = EqualizacjaNewLUT(activeImage.histogram);
+                    Image newImage = ManipulacjaHisto.LUTToImageGrayScale(new Bitmap(activeImage.Image), equalizeLUT);
                     CreateNewForm(newImage, "Equalizacja");
                 }
                 else
@@ -405,41 +574,42 @@ namespace ProjektAlgorytmyObrazów
                 }
             }
         }
-        private int[] EqualizacjaNewLUT(int[] dystrybuanta) {
-            int[]  resutl =new int[256];
+        private int[] EqualizacjaNewLUT(int[] LUT) {
+            int[]  result =new int[256];
             int pierwszaNiezerowa = 0;
-            for (int i = 0; i < dystrybuanta.Length; i++)
+            for (int i = 0; i < LUT.Length; i++)
             {
-                if (dystrybuanta[i] != 0)
+                if (LUT[i] != 0)
                 {
-                    pierwszaNiezerowa=dystrybuanta[i];
+                    pierwszaNiezerowa= LUT[i];
                     break;
                 }
             }
-            for (int i = 0; i < dystrybuanta.Length; i++)
+            double sum = 0;
+            for (int i = 0; i < LUT.Length; i++)
             {
-                resutl[i] = ((dystrybuanta[i] - pierwszaNiezerowa) / (1 - pierwszaNiezerowa)) * 255;
+                 sum= sum + LUT[i];
+                double zmienna1 = (sum - pierwszaNiezerowa);
+                var size = (activeImage.Image.Height * activeImage.Image.Width);
+                result[i] = (int)((zmienna1 / (double)(size - pierwszaNiezerowa)) * 255);
             }
-            return resutl;
+            return result;
         }
         private int[] PrepareDystrybuanta(int[] LUT)
         {
             int[] dystrybuanta = new int[256];
-            int allSum = 0;
+            //int allSum = 0;
+            //for (int i = 0; i < LUT.Length; i++)
+            //{
+            //    allSum = allSum + LUT[i];
+            //}
+            int sum = 0;
             for (int i = 0; i < LUT.Length; i++)
-            {
-                allSum = allSum + LUT[i];
-            }
-            for (int i = 0; i < LUT.Length; i++)
-            {
-                int sum = 0;
-                for (int j = 0; j <= i; j++)
-                {
-                    sum=sum + LUT[j];
-                }
-
-                dystrybuanta[i] =(int)(sum/ allSum);
-                sum = 0;
+            {                    
+                sum=sum + LUT[i];
+              
+                dystrybuanta[i] =(int)(sum);
+    
             }
             return dystrybuanta;
         }
@@ -615,15 +785,11 @@ namespace ProjektAlgorytmyObrazów
                 {
                     GenerateHistogram();
                 }
-                bool isGrayscale = true;
-                if (activeImage.greyScale == null || activeImage.greyScale.Count() > 0)
-                {
-                    isGrayscale = false;
-                }
+               
                 //var lutData= activeImage.histogram;
-                using (var lutTableForm = new LUTTableForm(activeImage, isGrayscale))
+                using (var lutTableForm = new LUTTableForm(activeImage, activeImage.isGrayscale))
                 {
-                    lutTableForm.Show();
+                    lutTableForm.ShowDialog();
                 }
 
             }
@@ -1004,6 +1170,12 @@ namespace ProjektAlgorytmyObrazów
         private ToolStripMenuItem oRToolStripMenuItem;
         private ToolStripMenuItem xORToolStripMenuItem;
         private ToolStripMenuItem aDDToolStripMenuItem;
+        private ToolStripMenuItem oPERACJEZLICZBAMIToolStripMenuItem;
+        private ToolStripMenuItem dodawanieToolStripMenuItem;
+        private ToolStripMenuItem dzielenieToolStripMenuItem;
+        private ToolStripMenuItem mnożenieToolStripMenuItem;
+        private ToolStripMenuItem różnicaBezwzględnaToolStripMenuItem;
+        private ToolStripMenuItem odejmowanieToolStripMenuItem;
     }
 
 

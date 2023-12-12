@@ -88,6 +88,29 @@ namespace ProjektAlgorytmyObrazów.Functions
 
             return (Image)correctedImage;
         }
+        public static Image LUTToImageGrayScale(Bitmap originalImage, int[] lutTable)
+        {
+            Bitmap correctedImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            // Przetwarzamy każdy piksel w obrazie
+            for (int i = 0; i < originalImage.Width; i++)
+            {
+                for (int j = 0; j < originalImage.Height; j++)
+                {
+                    // Pobieramy oryginalną wartość piksela (skala szarości)
+                    int originalGrayValue = originalImage.GetPixel(i, j).R;
+
+                    // Zastosowanie tablicy LUT do wartości skali szarości
+                    int correctedGrayValue = lutTable[originalGrayValue];
+
+                    // Tworzymy nowy kolor i ustawiamy go na obrazie wynikowym
+                    Color correctedColor = Color.FromArgb(correctedGrayValue, correctedGrayValue, correctedGrayValue);
+                    correctedImage.SetPixel(i, j, correctedColor);
+                }
+            }
+
+            return (Image)correctedImage;
+        }
     }
 
 }
