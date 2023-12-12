@@ -120,18 +120,18 @@ namespace ProjektAlgorytmyObrazów.Modele
             pictureBoxImage.Image = image;
         }
 
-        public void DisplayStatistics(double? median, int? min, int? max, double? stdDev)
+        public void DisplayStatistics(double? median, int? min, int? max, double? stdDev, int? pixelsCnt)
         {
             this.labelStats.Location = new Point(12, 535);
-            labelStats.Text = $"Mediana: {(median != null ? median : 0)} | Min: {(min != null ? min : 0)} | Max: {(max != null ? max : 0)} | Odchylenie Std: {(stdDev != null ? stdDev : 0)}";
+            labelStats.Text = $"Mediana: {(median != null ? median : 0)} | Min: {(min != null ? min : 0)} | Max: {(max != null ? max : 0)} | Odchylenie Std: {(stdDev != null ? stdDev : 0)} | Liczba Pikseli: {(pixelsCnt!=null?pixelsCnt:0)}";
         }
         public void DisplayStatisticsRGB(
                     Statiscics statR, Statiscics statG, Statiscics statB)
         {
             this.labelStats.Location = new Point(12, 735);
-            labelStats.Text = $"R: Mediana: {(statR.Mediana != null ? statR.Mediana : 0)} | Min: {(statR.Min != null ? statR.Min : 0)} | Max: {(statR.Max != null ? statR.Max : 0)} | Odchylenie Std: {(statR.OdchStand != null ? statR.OdchStand : 0)}\n" +
-                              $"G: Mediana: {(statG.Mediana != null ? statG.Mediana : 0)} | Min: {(statG.Min != null ? statG.Min : 0)} | Max: {(statG.Max != null ? statG.Max : 0)} | Odchylenie Std: {(statG.OdchStand != null ? statG.OdchStand : 0)}\n" +
-                              $"B: Mediana: {(statB.Mediana != null ? statB.Mediana : 0)} | Min: {(statB.Min != null ? statB.Min : 0)} | Max: {(statB.Max != null ? statB.Max : 0)} | Odchylenie Std: {(statB.OdchStand != null ? statB.OdchStand : 0)}";
+            labelStats.Text = $"R: Mediana: {(statR.Mediana != null ? statR.Mediana : 0)} | Min: {(statR.Min != null ? statR.Min : 0)} | Max: {(statR.Max != null ? statR.Max : 0)} | Odchylenie Std: {(statR.OdchStand != null ? statR.OdchStand : 0)} | Liczba Pikseli: {(statR.PixelsCnt != null ? statR.PixelsCnt : 0)}\n" +
+                              $"G: Mediana: {(statG.Mediana != null ? statG.Mediana : 0)} | Min: {(statG.Min != null ? statG.Min : 0)} | Max: {(statG.Max != null ? statG.Max : 0)} | Odchylenie Std: {(statG.OdchStand != null ? statG.OdchStand : 0)} | Liczba Pikseli: {(statG.PixelsCnt != null ? statG.PixelsCnt : 0)}\n" +
+                              $"B: Mediana: {(statB.Mediana != null ? statB.Mediana : 0)} | Min: {(statB.Min != null ? statB.Min : 0)} | Max: {(statB.Max != null ? statB.Max : 0)} | Odchylenie Std: {(statB.OdchStand != null ? statB.OdchStand : 0)} | Liczba Pikseli: {(statB.PixelsCnt != null ? statB.PixelsCnt : 0)}";
         }
     }
 }

@@ -16,6 +16,7 @@ namespace ProjektAlgorytmyObrazów.Functions
             stats.Min=CalculateMin(lut);
             stats.Mediana=CalculateMediana(pixels);
             stats.OdchStand=CalculateStandardDeviation(pixels);
+            stats.PixelsCnt=pixels.Count;
             return stats;
         }
         private static double CalculateMediana(List<byte> pixels)

@@ -120,6 +120,25 @@ namespace ProjektAlgorytmyObrazów.Functions
             return binaryImage;
         }
 
+        public static Bitmap ApplyBinaryThresholdWithGrayLevels(Bitmap originalImage, int threshold)
+        {
+            Bitmap binaryImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+            for (int x = 0; x < originalImage.Width; x++)
+            {
+                for (int y = 0; y < originalImage.Height; y++)
+                {
+                    Color originalColor = originalImage.GetPixel(x, y);
+                    int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
+                    int thresholdValue = threshold;
+                    int newBrightness = (averageBrightness > thresholdValue) ? 255 : 0; // Ustawia jasność na maksymalną lub minimalną
+                    Color newColor = Color.FromArgb(newBrightness, newBrightness, newBrightness);
+                    binaryImage.SetPixel(x, y, newColor);
+                }
+            }
+
+            return binaryImage;
+        }
         public static int GetPoziomProgowaniaForm()
         {
             Form poziomProgowaniaForm = new Form();
