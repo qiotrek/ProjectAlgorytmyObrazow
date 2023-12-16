@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV, Version=4.8.1.5350, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\Emgu.CV.4.8.1.5350\lib\netstandard2.0\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.Bitmap, Version=4.8.1.5350, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\Emgu.CV.Bitmap.4.8.1.5350\lib\netstandard2.0\Emgu.CV.Bitmap.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -48,6 +54,9 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
       <Private>True</Private>
@@ -106,6 +115,7 @@
     <Compile Include="Forms\LUTTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Functions\CustomForms.cs" />
     <Compile Include="Functions\ImageConverters.cs" />
     <Compile Include="Functions\Logiczne.cs" />
     <Compile Include="Functions\ManipulacjaHisto.cs" />
@@ -118,6 +128,8 @@
     </Compile>
     <Compile Include="Functions\OperacjePunktowe.cs" />
     <Compile Include="Functions\RozciaganieHisto.cs" />
+    <Compile Include="Functions\Segmentacja.cs" />
+    <Compile Include="Functions\WygladzanieLiniowe.cs" />
     <Compile Include="Modele\ImageObject.cs" />
     <Compile Include="Forms\RozciaganieForm.cs">
       <SubType>Form</SubType>

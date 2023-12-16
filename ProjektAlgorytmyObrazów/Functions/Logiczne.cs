@@ -203,54 +203,6 @@ namespace ProjektAlgorytmyObrazów.Functions
         {
             return Math.Max(1, Math.Min(127, value));
         }
-
-
-        public static int GetValueForm(string windowTitle,string labelTitle)
-        {
-            Form getValueForm = new Form();
-            int poziomProgowania = 0;
-
-            // Ustawienia formularza
-            getValueForm.Text = windowTitle;
-            getValueForm.Size = new System.Drawing.Size(300, 150);
-            getValueForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            getValueForm.MaximizeBox = false;
-
-            // Tekst na formularzu
-            Label label = new Label();
-            label.Text = labelTitle + ":";
-            label.Size = new System.Drawing.Size(160, 17);
-            label.Location = new System.Drawing.Point(70, 10);
-            getValueForm.Controls.Add(label);
-
-            // Numeric Up Down na formularzu
-            NumericUpDown numericUpDown = new NumericUpDown();
-            numericUpDown.Minimum = 1; // Minimalna wartość to 1 (liczba większa od 0)
-            numericUpDown.Location = new System.Drawing.Point(90, 30);
-            getValueForm.Controls.Add(numericUpDown);
-
-            // Przycisk na formularzu
-            Button button = new Button();
-            button.Text = "Zatwierdź";
-            button.Location = new System.Drawing.Point(110, 60);
-            button.Click += (s, args) =>
-            {
-
-                if (int.TryParse(numericUpDown.Value.ToString(), out poziomProgowania) && poziomProgowania > 0)
-                {
-                    getValueForm.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Wprowadź poprawną liczbę większą od 0.");
-                }
-
-            };
-            getValueForm.Controls.Add(button);
-
-            // Pokaż formularz
-            getValueForm.ShowDialog();
-            return poziomProgowania;
-        }
+       
     }
 }

@@ -82,10 +82,24 @@ namespace ProjektAlgorytmyObrazów
             this.aDDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oPERACJEZLICZBAMIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dodawanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.odejmowanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dzielenieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnożenieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.różnicaBezwzględnaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.odejmowanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lAB4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wygładzanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uśrednianieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uśrednianieZWagamiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrGaussowskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wyostrzanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detekcjaKrawędziToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maskaPrewittaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maskaSobelaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lAB5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.segmentacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otsuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adaptacyjneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,10 +111,13 @@ namespace ProjektAlgorytmyObrazów
             this.analizaToolStripMenu,
             this.imageEditionToolStripMenu,
             this.manipulacjaHistoToolStripMenuItem,
-            this.operacjeLogiczneToolStripMenuItem});
+            this.operacjeLogiczneToolStripMenuItem,
+            this.lAB4ToolStripMenuItem,
+            this.lAB5ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(682, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(780, 28);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -304,13 +321,19 @@ namespace ProjektAlgorytmyObrazów
             this.dodawanieToolStripMenuItem.Text = "Dodawanie";
             this.dodawanieToolStripMenuItem.Click += new System.EventHandler(this.ADDValueFn);
             // 
+            // odejmowanieToolStripMenuItem
+            // 
+            this.odejmowanieToolStripMenuItem.Name = "odejmowanieToolStripMenuItem";
+            this.odejmowanieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.odejmowanieToolStripMenuItem.Text = "Odejmowanie";
+            this.odejmowanieToolStripMenuItem.Click += new System.EventHandler(this.SubstractValueFn);
+            // 
             // dzielenieToolStripMenuItem
             // 
             this.dzielenieToolStripMenuItem.Name = "dzielenieToolStripMenuItem";
             this.dzielenieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.dzielenieToolStripMenuItem.Text = "Dzielenie";
             this.dzielenieToolStripMenuItem.Click += new System.EventHandler(this.DivideValueFn);
-
             // 
             // mnożenieToolStripMenuItem
             // 
@@ -318,7 +341,6 @@ namespace ProjektAlgorytmyObrazów
             this.mnożenieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.mnożenieToolStripMenuItem.Text = "Mnożenie";
             this.mnożenieToolStripMenuItem.Click += new System.EventHandler(this.MultiplyValueFn);
-
             // 
             // różnicaBezwzględnaToolStripMenuItem
             // 
@@ -327,22 +349,124 @@ namespace ProjektAlgorytmyObrazów
             this.różnicaBezwzględnaToolStripMenuItem.Text = "Różnica Bezwzględna";
             this.różnicaBezwzględnaToolStripMenuItem.Click += new System.EventHandler(this.AbsoluteDifferenceFn);
             // 
-            // odejmowanieToolStripMenuItem
+            // lAB4ToolStripMenuItem
             // 
-            this.odejmowanieToolStripMenuItem.Name = "odejmowanieToolStripMenuItem";
-            this.odejmowanieToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
-            this.odejmowanieToolStripMenuItem.Text = "Odejmowanie";
-            this.odejmowanieToolStripMenuItem.Click += new System.EventHandler(this.SubstractValueFn);
-
+            this.lAB4ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wygładzanieToolStripMenuItem,
+            this.wyostrzanieToolStripMenuItem,
+            this.detekcjaKrawędziToolStripMenuItem});
+            this.lAB4ToolStripMenuItem.Name = "lAB4ToolStripMenuItem";
+            this.lAB4ToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.lAB4ToolStripMenuItem.Text = "LAB4";
+            // 
+            // wygładzanieToolStripMenuItem
+            // 
+            this.wygładzanieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uśrednianieToolStripMenuItem,
+            this.uśrednianieZWagamiToolStripMenuItem,
+            this.filtrGaussowskiToolStripMenuItem});
+            this.wygładzanieToolStripMenuItem.Name = "wygładzanieToolStripMenuItem";
+            this.wygładzanieToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.wygładzanieToolStripMenuItem.Text = "Wygładzanie";
+            // 
+            // uśrednianieToolStripMenuItem
+            // 
+            this.uśrednianieToolStripMenuItem.Name = "uśrednianieToolStripMenuItem";
+            this.uśrednianieToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.uśrednianieToolStripMenuItem.Text = "Uśrednianie";
+            this.uśrednianieToolStripMenuItem.Click += new System.EventHandler(this.WygLinUsrednianieFn);
+            // 
+            // uśrednianieZWagamiToolStripMenuItem
+            // 
+            this.uśrednianieZWagamiToolStripMenuItem.Name = "uśrednianieZWagamiToolStripMenuItem";
+            this.uśrednianieZWagamiToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.uśrednianieZWagamiToolStripMenuItem.Text = "Uśrednianie z wagami";
+            this.uśrednianieZWagamiToolStripMenuItem.Click += new System.EventHandler(this.WygLinUsrednianieZWagamiFn);
+            // 
+            // filtrGaussowskiToolStripMenuItem
+            // 
+            this.filtrGaussowskiToolStripMenuItem.Name = "filtrGaussowskiToolStripMenuItem";
+            this.filtrGaussowskiToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.filtrGaussowskiToolStripMenuItem.Text = "Filtr Gaussowski";
+            this.filtrGaussowskiToolStripMenuItem.Click += new System.EventHandler(this.WygLinGaussianBlurFn);
+            // 
+            // wyostrzanieToolStripMenuItem
+            // 
+            this.wyostrzanieToolStripMenuItem.Name = "wyostrzanieToolStripMenuItem";
+            this.wyostrzanieToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.wyostrzanieToolStripMenuItem.Text = "Wyostrzanie";
+            this.wyostrzanieToolStripMenuItem.Click += new System.EventHandler(this.WyostrzanieFn);
+            // 
+            // detekcjaKrawędziToolStripMenuItem
+            // 
+            this.detekcjaKrawędziToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.maskaPrewittaToolStripMenuItem,
+            this.maskaSobelaToolStripMenuItem});
+            this.detekcjaKrawędziToolStripMenuItem.Name = "detekcjaKrawędziToolStripMenuItem";
+            this.detekcjaKrawędziToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.detekcjaKrawędziToolStripMenuItem.Text = "Detekcja Krawędzi";
+            // 
+            // maskaPrewittaToolStripMenuItem
+            // 
+            this.maskaPrewittaToolStripMenuItem.Name = "maskaPrewittaToolStripMenuItem";
+            this.maskaPrewittaToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
+            this.maskaPrewittaToolStripMenuItem.Text = "Maska Prewitta";
+            this.maskaPrewittaToolStripMenuItem.Click += new System.EventHandler(this.DetectEdgesPrewittFn);
+            // 
+            // maskaSobelaToolStripMenuItem
+            // 
+            this.maskaSobelaToolStripMenuItem.Name = "maskaSobelaToolStripMenuItem";
+            this.maskaSobelaToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
+            this.maskaSobelaToolStripMenuItem.Text = "Maska Sobela";
+            this.maskaSobelaToolStripMenuItem.Click += new System.EventHandler(this.DetectEdgesSobelFn);
+            // 
+            // lAB5ToolStripMenuItem
+            // 
+            this.lAB5ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.segmentacjaToolStripMenuItem});
+            this.lAB5ToolStripMenuItem.Name = "lAB5ToolStripMenuItem";
+            this.lAB5ToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.lAB5ToolStripMenuItem.Text = "LAB5";
+            // 
+            // segmentacjaToolStripMenuItem
+            // 
+            this.segmentacjaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.customToolStripMenuItem,
+            this.otsuToolStripMenuItem,
+            this.adaptacyjneToolStripMenuItem});
+            this.segmentacjaToolStripMenuItem.Name = "segmentacjaToolStripMenuItem";
+            this.segmentacjaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.segmentacjaToolStripMenuItem.Text = "Segmentacja";
+            // 
+            // customToolStripMenuItem
+            // 
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.customToolStripMenuItem.Text = "Custom";
+            this.customToolStripMenuItem.Click += new System.EventHandler(this.ProgowanieCustomFn);
+            // 
+            // otsuToolStripMenuItem
+            // 
+            this.otsuToolStripMenuItem.Name = "otsuToolStripMenuItem";
+            this.otsuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.otsuToolStripMenuItem.Text = "Otsu";
+            this.otsuToolStripMenuItem.Click += new System.EventHandler(this.ProgowanieOtsuFn);
+            // 
+            // adaptacyjneToolStripMenuItem
+            // 
+            this.adaptacyjneToolStripMenuItem.Name = "adaptacyjneToolStripMenuItem";
+            this.adaptacyjneToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.adaptacyjneToolStripMenuItem.Text = "Adaptacyjne";
+            this.adaptacyjneToolStripMenuItem.Click += new System.EventHandler(this.ProgowanieAdaptacyjneFn);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 73);
+            this.ClientSize = new System.Drawing.Size(780, 58);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "AlgorytmyPrzetwarzaniaObrazow";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -355,41 +479,140 @@ namespace ProjektAlgorytmyObrazów
 
         #endregion
 
-        private void ADDValueFn(object sender, EventArgs e)
+        private void ProgowanieCustomFn(object sender, EventArgs e)
         {
-            if (activeImage != null) 
-            { 
-                int addedValue = Logiczne.GetValueForm("Podaj wartość która ma zostać dodana", "Wartość do dodania");
-                Bitmap image = new Bitmap(activeImage.ImagePath);
-                Bitmap resultImage = Logiczne.AddValueToImage(image, addedValue);
-                CreateNewForm((Image)resultImage,"ADD Value Result");
-            }
-            else
+            if (activeImage == null)
             {
                 MessageBox.Show("Najpierw wybierz obraz!");
+                return;
             }
+            int param1 = CustomForms.GetValueForm("Podaj pierwszy próg", "Pierwszy próg");
+            int param2 = CustomForms.GetValueForm("Podaj drugi próg", "Drugi próg");
+            if (param1!=0&&param2!=0)
+            {
+                Bitmap resultImage = Segmentacja.Custom(new Mat(activeImage.ImagePath), param1, param2);
+                CreateNewForm((Image)resultImage, "Wyostrzanie Laplasjan Result");
+            }
+        }
+        private void ProgowanieOtsuFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+           
+                Bitmap resultImage = Segmentacja.Otsu(new Mat(activeImage.ImagePath));
+                CreateNewForm((Image)resultImage, "Progowanie Otsu Result");
+            
+        }
+        private void ProgowanieAdaptacyjneFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            
+                Bitmap resultImage = Segmentacja.Adaptacyjne(activeImage, activeImage.statistics.Max);
+                CreateNewForm((Image)resultImage, "Progowanie Adaptacyjne Result");
+            
+        }
+        private void WyostrzanieFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Mat mask = CustomForms.ChooseLaplacianMask();
+            if (mask.IsContinuous())
+            {
+                Bitmap resultImage = WygladzanieLiniowe.WyostrzanieLinioweLaplasjan(new Mat(activeImage.ImagePath),mask);
+                CreateNewForm((Image)resultImage, "Wyostrzanie Laplasjan Result");
+            }
+        }
+        private void DetectEdgesSobelFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Bitmap resultImage = WygladzanieLiniowe.DetectEdgesSobel(new Mat(activeImage.ImagePath));
+            CreateNewForm((Image)resultImage, "Wykrywanie Krawedzi Sobel Result");
+        }
+        private void DetectEdgesPrewittFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Bitmap resultImage = WygladzanieLiniowe.DetectEdgesPrewitt(new Mat(activeImage.ImagePath));
+            CreateNewForm((Image)resultImage, "Wykrywanie Krawedzi Prewitt Result");
+        }
+        private void WygLinUsrednianieFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Bitmap resultImage = WygladzanieLiniowe.Usrednianie(new Mat(activeImage.ImagePath));
+            CreateNewForm((Image)resultImage, "Uśrednianie Result");
+        }
+        private void WygLinUsrednianieZWagamiFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Bitmap resultImage = WygladzanieLiniowe.UsrednianieZWagami(new Mat(activeImage.ImagePath));
+            CreateNewForm((Image)resultImage, "Uśrednianie z Wagami Result");
+        }
+        private void WygLinGaussianBlurFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            Bitmap resultImage = WygladzanieLiniowe.GaussianBlur(new Mat(activeImage.ImagePath));
+            CreateNewForm((Image)resultImage, "Gaussian Result");
+        }
+        private void ADDValueFn(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            int addedValue = CustomForms.GetValueForm("Podaj wartość która ma zostać dodana", "Wartość do dodania");
+            Bitmap image = new Bitmap(activeImage.ImagePath);
+            Bitmap resultImage = Logiczne.AddValueToImage(image, addedValue);
+            CreateNewForm((Image)resultImage,"ADD Value Result");                    
         }
 
         private void SubstractValueFn(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
-                int substractValue = Logiczne.GetValueForm("Podaj wartość która ma zostać odjęta", "Wartość do odjęcia");
-                Bitmap image = new Bitmap(activeImage.ImagePath);
-                Bitmap resultImage = Logiczne.SubtractValueFromImage(image, substractValue);
-                CreateNewForm((Image)resultImage, "Substract Value Result");
-            }
-            else
-            {
                 MessageBox.Show("Najpierw wybierz obraz!");
+                return;
             }
+            int substractValue = CustomForms.GetValueForm("Podaj wartość która ma zostać odjęta", "Wartość do odjęcia");
+            Bitmap image = new Bitmap(activeImage.ImagePath);
+            Bitmap resultImage = Logiczne.SubtractValueFromImage(image, substractValue);
+            CreateNewForm((Image)resultImage, "Substract Value Result");         
         }
 
         private void MultiplyValueFn(object sender, EventArgs e)
         {
             if (activeImage != null)
             {
-                int multiplyValue = Logiczne.GetValueForm("Podaj wartość która ma zostać pomnożona", "Wartość do mnożenia");
+                int multiplyValue = CustomForms.GetValueForm("Podaj wartość która ma zostać pomnożona", "Wartość do mnożenia");
                 Bitmap image = new Bitmap(activeImage.ImagePath);
                 Bitmap resultImage = Logiczne.MultiplyImageByValue(image, multiplyValue);
                 CreateNewForm((Image)resultImage, "Multiply Value Result");
@@ -404,7 +627,7 @@ namespace ProjektAlgorytmyObrazów
         {
             if (activeImage != null)
             {
-                int divideValue = Logiczne.GetValueForm("Podaj wartość która ma zostać podzielona", "Wartość do dzielenia");
+                int divideValue = CustomForms.GetValueForm("Podaj wartość która ma zostać podzielona", "Wartość do dzielenia");
                 Bitmap image = new Bitmap(activeImage.ImagePath);
                 Bitmap resultImage = Logiczne.DivideImageByValue(image, divideValue);
                 CreateNewForm((Image)resultImage, "Divide Value Result");
@@ -776,7 +999,6 @@ namespace ProjektAlgorytmyObrazów
         {
             GenerateLUTTable();
             
-
         }
         private void GenerateLUTTable() {
             if (activeImage != null)
@@ -941,8 +1163,6 @@ namespace ProjektAlgorytmyObrazów
             }
             return histogram;
         }
-             
-        // Funkcja do przekształcania obrazu na podstawie tablicy LUT
        
         private void WczytajFn(object sender, EventArgs e)
         {
@@ -961,8 +1181,6 @@ namespace ProjektAlgorytmyObrazów
             }
            
         }
-
-        
 
         private void DuplikujFn(object sender, EventArgs e)
         {
@@ -1132,13 +1350,6 @@ namespace ProjektAlgorytmyObrazów
             }
             activeImage = imageForm.Image;
             rozciaganieForm.activeImage = activeImage;
-            //if (activeForm != null)
-            //{
-            //    // Oznacz poprzednie okno jako nieaktywne
-            //    activeForm.Text = "Wczytany Obraz";
-            //}
-
-            // Ustaw nowe okno jako aktywne
             activeForm = imageForm;
             if (!imageForm.Text.Contains("(Aktywne)"))
             {
@@ -1176,6 +1387,20 @@ namespace ProjektAlgorytmyObrazów
         private ToolStripMenuItem mnożenieToolStripMenuItem;
         private ToolStripMenuItem różnicaBezwzględnaToolStripMenuItem;
         private ToolStripMenuItem odejmowanieToolStripMenuItem;
+        private ToolStripMenuItem lAB4ToolStripMenuItem;
+        private ToolStripMenuItem wygładzanieToolStripMenuItem;
+        private ToolStripMenuItem uśrednianieToolStripMenuItem;
+        private ToolStripMenuItem uśrednianieZWagamiToolStripMenuItem;
+        private ToolStripMenuItem filtrGaussowskiToolStripMenuItem;
+        private ToolStripMenuItem wyostrzanieToolStripMenuItem;
+        private ToolStripMenuItem detekcjaKrawędziToolStripMenuItem;
+        private ToolStripMenuItem maskaPrewittaToolStripMenuItem;
+        private ToolStripMenuItem maskaSobelaToolStripMenuItem;
+        private ToolStripMenuItem lAB5ToolStripMenuItem;
+        private ToolStripMenuItem segmentacjaToolStripMenuItem;
+        private ToolStripMenuItem customToolStripMenuItem;
+        private ToolStripMenuItem otsuToolStripMenuItem;
+        private ToolStripMenuItem adaptacyjneToolStripMenuItem;
     }
 
 
