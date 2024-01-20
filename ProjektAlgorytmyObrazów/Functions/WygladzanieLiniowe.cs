@@ -12,6 +12,7 @@ namespace ProjektAlgorytmyObrazów.Functions
     {
         public static Bitmap Usrednianie(Mat image)
         {
+
             Mat res = new Mat();
             Cv2.Blur(InputArray.Create(image), res, new OpenCvSharp.Size(3, 3));
             return ConvertMatToBitmap(res);

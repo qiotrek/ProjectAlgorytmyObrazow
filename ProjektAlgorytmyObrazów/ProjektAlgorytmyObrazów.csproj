@@ -112,11 +112,24 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CheckboxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EdgeDetecionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\LUTTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MedianForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Functions\CustomForms.cs" />
     <Compile Include="Functions\ImageConverters.cs" />
+    <Compile Include="Functions\lab6.cs" />
     <Compile Include="Functions\Logiczne.cs" />
     <Compile Include="Functions\ManipulacjaHisto.cs" />
     <Compile Include="Functions\MathFns.cs" />
@@ -137,6 +150,7 @@
     <Compile Include="Modele\Statiscics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Untils.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,7 +166,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
