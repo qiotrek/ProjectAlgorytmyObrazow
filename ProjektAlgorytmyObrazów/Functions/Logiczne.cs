@@ -57,18 +57,57 @@ namespace ProjektAlgorytmyObrazów.Functions
             return resultImage;
         }
 
-
-        public static Mat LogicalAdd(Mat imageA, Mat imageB)
+        public static Bitmap AddImages(Bitmap imageOriginal, Bitmap imageToMerge, bool saturation)
         {
-            // Sprawdź, czy obrazy mają takie same wymiary
-            if (imageA.Size() != imageB.Size())
-                MessageBox.Show("Obrazy muszą mieć takie same wymiary");
+            Bitmap mergedImage = new Bitmap(imageOriginal.Width, imageOriginal.Height);
 
-            // Wykonaj operację Xor
-            Mat resultImage = new Mat();
-            Cv2.Add(imageA, imageB, resultImage);
+            for (int i = 0; i < imageOriginal.Width; i++)
+            {
+                for (int j = 0; j < imageOriginal.Height; j++)
+                {
+                    Color pixelColorOriginal = ((Bitmap)imageOriginal).GetPixel(i, j);
+                    Color pixelColor;
 
-            return resultImage;
+                    if (i < imageToMerge.Width && j < imageToMerge.Height)
+                        pixelColor = imageToMerge.GetPixel(i, j);
+                    else
+                        pixelColor = Color.FromArgb(0, 0, 0);
+
+                    Color mergeColor = Color.FromArgb(
+                        saturation ? (pixelColorOriginal.R + pixelColor.R).Clamp<int>(0, 255) : (pixelColorOriginal.R.Clamp<byte>(1, 127) + pixelColor.R.Clamp<byte>(1, 127)).Clamp<int>(0, 255),
+                        saturation ? (pixelColorOriginal.G + pixelColor.G).Clamp<int>(0, 255) : (pixelColorOriginal.G.Clamp<byte>(1, 127) + pixelColor.G.Clamp<byte>(1, 127)).Clamp<int>(0, 255),
+                        saturation ? (pixelColorOriginal.B + pixelColor.B).Clamp<int>(0, 255) : (pixelColorOriginal.B.Clamp<byte>(1, 127) + pixelColor.B.Clamp<byte>(1, 127)).Clamp<int>(0, 255));
+
+                    mergedImage.SetPixel(i, j, mergeColor);
+                }
+            }
+
+            return mergedImage;
+        }
+
+        public static Bitmap  SubtractImages(Bitmap imageOriginal, Bitmap imageToMerge)
+        {
+            Bitmap mergedImage = new Bitmap(imageOriginal.Width, imageOriginal.Height);
+
+            for (int i = 0; i < imageOriginal.Width; i++)
+            {
+                for (int j = 0; j < imageOriginal.Height; j++)
+                {
+                    Color pixelColorOriginal = ((Bitmap)imageOriginal).GetPixel(i, j);
+                    Color pixelColor;
+
+                    if (i < imageToMerge.Width && j < imageToMerge.Height)
+                        pixelColor = imageToMerge.GetPixel(i, j);
+                    else
+                        pixelColor = Color.FromArgb(0, 0, 0);
+
+                    Color mergeColor = Color.FromArgb((pixelColorOriginal.R - pixelColor.R).Clamp<int>(0, 255), (pixelColorOriginal.G - pixelColor.G).Clamp<int>(0, 255), (pixelColorOriginal.B - pixelColor.B).Clamp<int>(0, 255));
+
+                    mergedImage.SetPixel(i, j, mergeColor);
+                }
+            }
+
+            return mergedImage;
         }
 
         public static Bitmap AddValueToImage(Bitmap image, int value)
@@ -79,15 +118,10 @@ namespace ProjektAlgorytmyObrazów.Functions
             {
                 for (int j = 0; j < image.Height; j++)
                 {
-                    Color pixel = image.GetPixel(i, j);
+                    Color pixelColor = ((Bitmap)image).GetPixel(i, j);
+                    Color addColor = Color.FromArgb((pixelColor.R + value).Clamp<int>(0, 255), (pixelColor.G + value).Clamp<int>(0, 255), (pixelColor.B + value).Clamp<int>(0, 255));
 
-                    // Dodaj wartość do składowej czerwonej piksela
-                    int newRed = SaturateValue(pixel.R + value);
-                    int newGreen = SaturateValue(pixel.G + value);
-                    int newBlue = SaturateValue(pixel.B + value);
-
-                    // Ustaw wynikowy piksel
-                    resultImage.SetPixel(i, j, Color.FromArgb(newRed, newGreen, newBlue));
+                    resultImage.SetPixel(i, j, addColor);
                 }
             }
 
@@ -102,13 +136,14 @@ namespace ProjektAlgorytmyObrazów.Functions
             {
                 for (int j = 0; j < image.Height; j++)
                 {
-                    Color pixel = image.GetPixel(i, j);
+                    Color pixelColor = image.GetPixel(i, j);
+                    Color subtractColor = Color.FromArgb(
+                        (pixelColor.R - value).Clamp<int>(0, 255),
+                        (pixelColor.G - value).Clamp<int>(0, 255),
+                        (pixelColor.B - value).Clamp<int>(0, 255)
+                    );
 
-                    int newRed = SaturateValue(pixel.R - value);
-                    int newGreen = SaturateValue(pixel.G - value);
-                    int newBlue = SaturateValue(pixel.B - value);
-
-                    resultImage.SetPixel(i, j, Color.FromArgb(newRed, newGreen, newBlue));
+                    resultImage.SetPixel(i, j, subtractColor);
                 }
             }
 
@@ -123,17 +158,12 @@ namespace ProjektAlgorytmyObrazów.Functions
             {
                 for (int j = 0; j < image.Height; j++)
                 {
-                    Color pixel = image.GetPixel(i, j);
+                    Color pixelColor = ((Bitmap)image).GetPixel(i, j);
+                    Color multiplyColor = Color.FromArgb((pixelColor.R * value).Clamp<int>(0, 255), (pixelColor.G * value).Clamp<int>(0, 255), (pixelColor.B * value).Clamp<int>(0, 255));
 
-                    int newRed = SaturateValue(pixel.R * value);
-                    int newGreen = SaturateValue(pixel.G * value);
-                    int newBlue = SaturateValue(pixel.B * value);
-
-      
-                    resultImage.SetPixel(i, j, Color.FromArgb(newRed, newGreen, newBlue));
+                    resultImage.SetPixel(i, j, multiplyColor);
                 }
             }
-
             return resultImage;
         }
 
@@ -150,12 +180,10 @@ namespace ProjektAlgorytmyObrazów.Functions
                     if (value != 0)
                     {
                         // Podziel wartość składowej czerwonej piksela przez daną wartość
-                        int newRed = SaturateValue(pixel.R / value);
-                        int newGreen = SaturateValue(pixel.G / value);
-                        int newBlue = SaturateValue(pixel.B / value);
+                        Color pixelColor = ((Bitmap)image).GetPixel(i, j);
+                        Color dividedColor = Color.FromArgb((pixelColor.R / value).Clamp<int>(0, 255), (pixelColor.G / value).Clamp<int>(0, 255), (pixelColor.B / value).Clamp<int>(0, 255));
 
-                        // Ustaw wynikowy piksel
-                        resultImage.SetPixel(i, j, Color.FromArgb(newRed, newGreen, newBlue));
+                        resultImage.SetPixel(i, j, dividedColor);
                     }
                     else
                     {
@@ -203,54 +231,6 @@ namespace ProjektAlgorytmyObrazów.Functions
         {
             return Math.Max(1, Math.Min(127, value));
         }
-
-
-        public static int GetValueForm(string windowTitle,string labelTitle)
-        {
-            Form getValueForm = new Form();
-            int poziomProgowania = 0;
-
-            // Ustawienia formularza
-            getValueForm.Text = windowTitle;
-            getValueForm.Size = new System.Drawing.Size(300, 150);
-            getValueForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            getValueForm.MaximizeBox = false;
-
-            // Tekst na formularzu
-            Label label = new Label();
-            label.Text = labelTitle + ":";
-            label.Size = new System.Drawing.Size(160, 17);
-            label.Location = new System.Drawing.Point(70, 10);
-            getValueForm.Controls.Add(label);
-
-            // Numeric Up Down na formularzu
-            NumericUpDown numericUpDown = new NumericUpDown();
-            numericUpDown.Minimum = 1; // Minimalna wartość to 1 (liczba większa od 0)
-            numericUpDown.Location = new System.Drawing.Point(90, 30);
-            getValueForm.Controls.Add(numericUpDown);
-
-            // Przycisk na formularzu
-            Button button = new Button();
-            button.Text = "Zatwierdź";
-            button.Location = new System.Drawing.Point(110, 60);
-            button.Click += (s, args) =>
-            {
-
-                if (int.TryParse(numericUpDown.Value.ToString(), out poziomProgowania) && poziomProgowania > 0)
-                {
-                    getValueForm.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Wprowadź poprawną liczbę większą od 0.");
-                }
-
-            };
-            getValueForm.Controls.Add(button);
-
-            // Pokaż formularz
-            getValueForm.ShowDialog();
-            return poziomProgowania;
-        }
+       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using Emgu.CV;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,7 +13,7 @@ namespace ProjektAlgorytmyObrazów.Functions
     public class ImageConverters
     {
 
-        public static Bitmap ConvertMatToBitmap(Mat matData)
+        public static Bitmap ConvertMatToBitmap(OpenCvSharp.Mat matData)
         {
             byte[] imageData= matData.ToBytes();
             try
@@ -31,5 +32,7 @@ namespace ProjektAlgorytmyObrazów.Functions
                 return null;
             }
         }
+
+       
     }
 }
