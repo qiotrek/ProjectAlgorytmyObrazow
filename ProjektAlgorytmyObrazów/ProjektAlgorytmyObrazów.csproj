@@ -139,7 +139,9 @@
     <Compile Include="Forms\ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Functions\Morfologia.cs" />
     <Compile Include="Functions\OperacjePunktowe.cs" />
+    <Compile Include="Functions\Rozciaganie2skladnikowe.cs" />
     <Compile Include="Functions\RozciaganieHisto.cs" />
     <Compile Include="Functions\Segmentacja.cs" />
     <Compile Include="Functions\WygladzanieLiniowe.cs" />

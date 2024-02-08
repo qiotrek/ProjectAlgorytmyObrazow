@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenCvSharp;
+using ProjektAlgorytmyObrazów.Modele;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,7 +12,20 @@ namespace ProjektAlgorytmyObrazów.Functions
 {
     public class ManipulacjaHisto
     {
+        public static Mat Equalize(ImageObject inputImage)
+        {
+            Mat matImage = new Mat(inputImage.ImagePath);
+            Mat grayMat = new Mat();
+            Cv2.CvtColor(matImage, grayMat, ColorConversionCodes.BGR2GRAY);
 
+            Mat equalizedMat = new Mat();
+            Cv2.EqualizeHist(grayMat, equalizedMat);
+
+            Mat outputMat = new Mat();
+            Cv2.CvtColor(equalizedMat, outputMat, ColorConversionCodes.GRAY2BGR);
+
+            return outputMat;
+        }
 
         public static double GetGammaParameterFromUser()
         {
