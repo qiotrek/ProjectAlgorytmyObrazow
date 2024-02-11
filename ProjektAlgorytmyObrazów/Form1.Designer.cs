@@ -75,6 +75,7 @@ namespace ProjektAlgorytmyObrazów
             this.progowanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rozciaganieLinioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redukcjaSzarosciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rozciaganieDwuskladnikoweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manipulacjaHistoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gammaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.equalizacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,7 +111,8 @@ namespace ProjektAlgorytmyObrazów
             this.momentyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.polaPowierzchniIObwoduToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.morfologiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rozciaganieDwuskladnikoweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pROJEKTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pUNKTYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,7 +127,8 @@ namespace ProjektAlgorytmyObrazów
             this.operacjeLogiczneToolStripMenuItem,
             this.lAB4ToolStripMenuItem,
             this.lAB5ToolStripMenuItem,
-            this.lab6ToolStripMenuItem});
+            this.lab6ToolStripMenuItem,
+            this.pROJEKTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -243,6 +246,13 @@ namespace ProjektAlgorytmyObrazów
             this.redukcjaSzarosciToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
             this.redukcjaSzarosciToolStripMenuItem.Text = "RedukcjaPozSzarości";
             this.redukcjaSzarosciToolStripMenuItem.Click += new System.EventHandler(this.RedukcjaSzarosciFN);
+            // 
+            // rozciaganieDwuskladnikoweToolStripMenuItem
+            // 
+            this.rozciaganieDwuskladnikoweToolStripMenuItem.Name = "rozciaganieDwuskladnikoweToolStripMenuItem";
+            this.rozciaganieDwuskladnikoweToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
+            this.rozciaganieDwuskladnikoweToolStripMenuItem.Text = "Rozciaganie Dwuskladnikowe";
+            this.rozciaganieDwuskladnikoweToolStripMenuItem.Click += new System.EventHandler(this.Rozciaganie2Skladnikowe);
             // 
             // manipulacjaHistoToolStripMenuItem
             // 
@@ -517,12 +527,20 @@ namespace ProjektAlgorytmyObrazów
             this.morfologiaToolStripMenuItem.Text = "Morfologia";
             this.morfologiaToolStripMenuItem.Click += new System.EventHandler(this.MorfologiaFn);
             // 
-            // rozciaganieDwuskladnikoweToolStripMenuItem
+            // pROJEKTToolStripMenuItem
             // 
-            this.rozciaganieDwuskladnikoweToolStripMenuItem.Name = "rozciaganieDwuskladnikoweToolStripMenuItem";
-            this.rozciaganieDwuskladnikoweToolStripMenuItem.Size = new System.Drawing.Size(288, 26);
-            this.rozciaganieDwuskladnikoweToolStripMenuItem.Text = "Rozciaganie Dwuskladnikowe";
-            this.rozciaganieDwuskladnikoweToolStripMenuItem.Click += new System.EventHandler(this.Rozciaganie2Skladnikowe);
+            this.pROJEKTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pUNKTYToolStripMenuItem});
+            this.pROJEKTToolStripMenuItem.Name = "pROJEKTToolStripMenuItem";
+            this.pROJEKTToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.pROJEKTToolStripMenuItem.Text = "PROJEKT";
+            // 
+            // pUNKTYToolStripMenuItem
+            // 
+            this.pUNKTYToolStripMenuItem.Name = "pUNKTYToolStripMenuItem";
+            this.pUNKTYToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pUNKTYToolStripMenuItem.Text = "3 PUNKTY";
+            this.pUNKTYToolStripMenuItem.Click += new System.EventHandler(this.TrzyPunktyProjekt);
             // 
             // Form1
             // 
@@ -544,6 +562,27 @@ namespace ProjektAlgorytmyObrazów
 
         #endregion
 
+        //Udoskonalenie oprogramowania przygotowanego na zajęciach przez przygotowanie funkcji zmieniającej obraz według przekształcenia opisanego przemieszczeniem trzech nie współliniowych punktów.
+        private void TrzyPunktyProjekt(object sender, EventArgs e)
+        {
+            if (activeImage == null)
+            {
+                MessageBox.Show("Najpierw wybierz obraz!");
+                return;
+            }
+            OpenCvSharp.Mat image = new OpenCvSharp.Mat(activeImage.ImagePath);
+
+            // Inicjalizacja klasy przekształcenia punktów
+            PointTransformation pointTransformation = new PointTransformation();
+
+            // Wybieranie punktów 
+            pointTransformation.SelectPoints(image.Clone());
+
+            // Przekształcenie punktów
+            OpenCvSharp.Mat result =pointTransformation.TransformPoints(image);
+
+            CreateNewForm((Image)ImageConverters.ConvertMatToBitmap(result), "3 punkty Result");
+        }
         private void Rozciaganie2Skladnikowe(object sender, EventArgs e)
         {
             if (activeImage == null)
@@ -1765,6 +1804,8 @@ namespace ProjektAlgorytmyObrazów
         private ToolStripMenuItem operatorCannyegoToolStripMenuItem;
         private ToolStripMenuItem morfologiaToolStripMenuItem;
         private ToolStripMenuItem rozciaganieDwuskladnikoweToolStripMenuItem;
+        private ToolStripMenuItem pROJEKTToolStripMenuItem;
+        private ToolStripMenuItem pUNKTYToolStripMenuItem;
     }
 
 

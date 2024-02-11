@@ -124,6 +124,7 @@
     <Compile Include="Forms\MedianForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\ProjectForm.cs" />
     <Compile Include="Forms\SelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
