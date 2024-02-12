@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenCvSharp;
+using ProjektAlgorytmyObrazów.Modele;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -101,44 +103,85 @@ namespace ProjektAlgorytmyObrazów.Functions
             return przesycenie;
         }
 
-        public static Bitmap ApplyBinaryThreshold(Bitmap originalImage, int threshold)
-        {
-            Bitmap binaryImage = new Bitmap(originalImage.Width, originalImage.Height);
 
-            for (int x = 0; x < originalImage.Width; x++)
+        public static Mat BinaryThreshold(ImageObject inputImage, double threshold)
+        {        
+                Mat matImage = new Mat(inputImage.ImagePath);
+                Mat grayMat = new Mat();
+                Cv2.CvtColor(matImage, grayMat, ColorConversionCodes.BGR2GRAY);
+
+                Mat binaryMat = new Mat();
+                Cv2.Threshold(grayMat, binaryMat, threshold, 255, ThresholdTypes.Binary);
+
+               return binaryMat;         
+        }
+
+        //public static Bitmap ApplyBinaryThreshold(Bitmap originalImage, int threshold)
+        //{
+        //    Bitmap binaryImage = new Bitmap(originalImage.Width, originalImage.Height);
+
+        //    for (int x = 0; x < originalImage.Width; x++)
+        //    {
+        //        for (int y = 0; y < originalImage.Height; y++)
+        //        {
+        //            Color originalColor = originalImage.GetPixel(x, y);
+        //            int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
+        //            int thresholdValue = threshold;
+        //            Color newColor = (averageBrightness > thresholdValue) ? Color.White : Color.Black;
+        //            binaryImage.SetPixel(x, y, newColor);
+        //        }
+        //    }
+
+        //    return binaryImage;
+        //}
+
+
+        public static Bitmap Threshold(ImageObject inputImage, double threshold)
+        {
+            Bitmap thresholdedImage = new Bitmap(inputImage.Image.Width, inputImage.Image.Height);
+
+            for (int y = 0; y < inputImage.Image.Height; y++)
             {
-                for (int y = 0; y < originalImage.Height; y++)
+                for (int x = 0; x < inputImage.Image.Width; x++)
                 {
-                    Color originalColor = originalImage.GetPixel(x, y);
-                    int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
-                    int thresholdValue = threshold;
-                    Color newColor = (averageBrightness > thresholdValue) ? Color.White : Color.Black;
-                    binaryImage.SetPixel(x, y, newColor);
+                    Color pixelColor = ((Bitmap)inputImage.Image).GetPixel(x, y);
+                    int grayValue = (int)(0.299 * pixelColor.R + 0.587 * pixelColor.G + 0.114 * pixelColor.B);
+
+                    if (grayValue >= threshold)
+                    {
+                        thresholdedImage.SetPixel(x, y, Color.FromArgb(grayValue, grayValue, grayValue));
+                    }
+                    else
+                    {
+                        thresholdedImage.SetPixel(x, y, Color.Black);
+                    }
                 }
             }
 
-            return binaryImage;
+            return thresholdedImage;
+
+
         }
 
-        public static Bitmap ApplyBinaryThresholdWithGrayLevels(Bitmap originalImage, int threshold)
-        {
-            Bitmap binaryImage = new Bitmap(originalImage.Width, originalImage.Height);
+        //public static Bitmap ApplyBinaryThresholdWithGrayLevels(Bitmap originalImage, int threshold)
+        //{
+        //    Bitmap binaryImage = new Bitmap(originalImage.Width, originalImage.Height);
 
-            for (int x = 0; x < originalImage.Width; x++)
-            {
-                for (int y = 0; y < originalImage.Height; y++)
-                {
-                    Color originalColor = originalImage.GetPixel(x, y);
-                    int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
-                    int thresholdValue = threshold;
-                    int newBrightness = (averageBrightness > thresholdValue) ? 255 : 0; // Ustawia jasność na maksymalną lub minimalną
-                    Color newColor = Color.FromArgb(newBrightness, newBrightness, newBrightness);
-                    binaryImage.SetPixel(x, y, newColor);
-                }
-            }
+        //    for (int x = 0; x < originalImage.Width; x++)
+        //    {
+        //        for (int y = 0; y < originalImage.Height; y++)
+        //        {
+        //            Color originalColor = originalImage.GetPixel(x, y);
+        //            int averageBrightness = (originalColor.R + originalColor.G + originalColor.B) / 3;
+        //            int thresholdValue = threshold;
+        //            int newBrightness = (averageBrightness > thresholdValue) ? 255 : 0; // Ustawia jasność na maksymalną lub minimalną
+        //            Color newColor = Color.FromArgb(newBrightness, newBrightness, newBrightness);
+        //            binaryImage.SetPixel(x, y, newColor);
+        //        }
+        //    }
 
-            return binaryImage;
-        }
+        //    return binaryImage;
+        //}
         public static int GetPoziomProgowaniaForm()
         {
             Form poziomProgowaniaForm = new Form();
